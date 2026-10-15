@@ -15,7 +15,6 @@ if(project_sources)
   add_library(${lib_project_target} STATIC
     ${project_sources}
     ${jsoncpp_sources}
-          src/Action.cpp
   )
 
   add_dependencies(${lib_project_target} generate-headers)

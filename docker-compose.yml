@@ -15,8 +15,7 @@ services:
     user: $USER_UID:$USER_GID
     volumes:
       - ./:/app
-      # - $XDG_RUNTIME_DIR/$WAYLAND_DISPLAY:/tmp/$WAYLAND_DISPLAY
-      - /run/user/1000/$WAYLAND_DISPLAY:/tmp/$WAYLAND_DISPLAY
+      - $XDG_RUNTIME_DIR/$WAYLAND_DISPLAY:/tmp/$WAYLAND_DISPLAY
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
       - ~/.ssh:/home/${username:-plt}/.ssh:ro
       - ~/.gitconfig:/home/${username:-plt}/.gitconfig:ro
