@@ -16,6 +16,7 @@ if(project_sources)
     ${project_sources}
     ${jsoncpp_sources}
           src/Action.cpp
+          src/AttackAction.cpp
   )
 
   add_dependencies(${lib_project_target} generate-headers)
