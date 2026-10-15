@@ -27,7 +27,11 @@ function(generate_dia_header dia_file)
   get_filename_component(namespace ${dia_file} NAME_WE)
   
   # Path to the output directory
-  set(output_dir ${CMAKE_CURRENT_SOURCE_DIR})
+  if(ARGC GREATER 1)
+    set(output_dir ${ARGV1})
+  else()
+    set(output_dir ${CMAKE_CURRENT_SOURCE_DIR})
+  endif()
 
   # Stamp file that take care of the dependency chain
   set(stamp ${PROJECT_BINARY_DIR}/generate_header_${namespace}.stamp)
@@ -35,8 +39,9 @@ function(generate_dia_header dia_file)
   # Custom command that generate the cpp headers and create the stamp file
   add_custom_command(
     OUTPUT ${stamp}
-    COMMAND ${CMAKE_COMMAND} -E rm -f ${PROJECT_SOURCE_DIR}/src/*/${namespace}.h
-    COMMAND ${CMAKE_COMMAND} -E rm -f ${PROJECT_SOURCE_DIR}/src/*/${namespace}/*.h
+    COMMAND ${CMAKE_COMMAND} -E make_directory ${output_dir}
+    COMMAND ${CMAKE_COMMAND} -E rm -f ${output_dir}/${namespace}.h
+    COMMAND ${CMAKE_COMMAND} -E rm -f ${output_dir}/${namespace}/*.h
     COMMAND $<TARGET_FILE:dia2code> --debug 8 -ns ${namespace} -d ${output_dir} -t cpp ${dia_file}
     COMMAND ${CMAKE_COMMAND} -E touch ${stamp}
     DEPENDS ${dia_file}
