@@ -13,14 +13,13 @@ void testSFML() {
 using namespace std;
 using namespace state;
 
-int main(int argc,char* argv[])
-{
+int main(int argc,char* argv[]){
     Example example;
     ExampleA exampleA;
     exampleA.setX(53);
     example.setA(exampleA);
 
-    cout << "It works !" << endl;
+    cout << "Hello Word !" << endl;
 
     return 0;
 }

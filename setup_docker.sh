@@ -2,7 +2,7 @@
 
 set -e
 
-echo USERNAME=plt > ./.env
+echo USERNAME=florent > ./.env
 echo USER_UID=$(id -u) >> ./.env
 echo USER_GID=$(id -g) >> ./.env
 
