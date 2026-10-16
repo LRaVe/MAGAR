@@ -88,7 +88,6 @@
       </dia:composite>
     </dia:attribute>
   </dia:diagramdata>
-  <dia:layer name="Background" visible="true" connectable="true"/>
   <dia:layer name="Background" visible="true" connectable="true" active="true">
     <dia:object type="UML - LargePackage" version="0" id="O0">
       <dia:attribute name="obj_pos">
@@ -136,13 +135,13 @@
     </dia:object>
     <dia:object type="UML - Class" version="0" id="O1">
       <dia:attribute name="obj_pos">
-        <dia:point val="-34.3921,5.41573"/>
+        <dia:point val="-34.0921,6.31573"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="-34.4421,5.36573;-21.9071,9.66573"/>
+        <dia:rectangle val="-34.1421,6.26573;-21.6071,10.5657"/>
       </dia:attribute>
       <dia:attribute name="elem_corner">
-        <dia:point val="-34.3921,5.41573"/>
+        <dia:point val="-34.0921,6.31573"/>
       </dia:attribute>
       <dia:attribute name="elem_width">
         <dia:real val="12.434999999999999"/>
@@ -3761,19 +3760,19 @@
     </dia:object>
     <dia:object type="UML - Dependency" version="1" id="O22">
       <dia:attribute name="obj_pos">
-        <dia:point val="-28.1746,9.61573"/>
+        <dia:point val="-27.8746,10.5157"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="-43.0909,8.8208;-28.1246,10.7708"/>
+        <dia:rectangle val="-43.0909,8.8208;-27.8246,11.6157"/>
       </dia:attribute>
       <dia:attribute name="meta">
         <dia:composite type="dict"/>
       </dia:attribute>
       <dia:attribute name="orth_points">
-        <dia:point val="-28.1746,9.61573"/>
-        <dia:point val="-28.1746,10.6657"/>
-        <dia:point val="-35.4077,10.6657"/>
-        <dia:point val="-35.4077,8.8708"/>
+        <dia:point val="-27.8746,10.5157"/>
+        <dia:point val="-27.8746,11.5657"/>
+        <dia:point val="-35.2577,11.5657"/>
+        <dia:point val="-35.2577,8.8708"/>
         <dia:point val="-42.6409,8.8708"/>
         <dia:point val="-42.6409,10.3208"/>
       </dia:attribute>
