@@ -6,9 +6,11 @@ GameState::GameState() :
     turn(0),
     players(),
     current_Player(players[turn%players.size()]),
-    board(Board::get_instance()),
+    board(Board()),
     possible_Moves(),
-    dice_Draw() {
+    dice_Draw(),
+    stone(Stone()),
+    dragon(Dragon()) {
 }
 
 int GameState::get_turn() {
@@ -31,3 +33,10 @@ std::vector<Player> GameState::get_players() {
     return players;
 }
 
+Stone GameState::get_stone() {
+    return stone;
+}
+
+Dragon GameState::get_dragon() {
+    return dragon;
+}
