@@ -15,6 +15,7 @@ void Pawn::move(Position new_position){
 }
 
 int Pawn::get_distance_from(Pawn pawn) {
-    return 1;
+    Position pos = pawn.get_position();
+    return pos.q;
 }
 
