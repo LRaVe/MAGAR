@@ -1,6 +1,7 @@
 #include "State/Board.h"
 
-#include  <iostream>
+#include <memory>
+#include <iostream>
 using namespace std;
 
 #include "State/ClassicTile.h"

@@ -1,12 +1,14 @@
 #include "State/GameState.h"
 #include "State/Board.h"
+
+#include <memory>
 using namespace State;
 
 GameState::GameState() :
     turn(0),
     players(),
     current_Player(players[turn%players.size()]),
-    board(Board()),
+    board(),
     possible_Moves(),
     dice_Draw(),
     stone(Stone(Position(0,0))),
