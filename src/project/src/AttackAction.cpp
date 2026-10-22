@@ -1,4 +1,4 @@
-#include "../include/State/AttackAction.h"
+#include "State/AttackAction.h"
 
 State::AttackAction::AttackAction(PlayablePawn* attacker, PlayablePawn* target) : attacker(attacker), target(target) {
 

@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
 
-#include "../include/State/NestTile.h"
+#include "State/NestTile.h"
 
 using namespace State;
 

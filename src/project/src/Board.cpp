@@ -1,4 +1,4 @@
-#include "../include/State/Board.h"
+#include "State/Board.h"
 
 #include  <iostream>
 using namespace std;

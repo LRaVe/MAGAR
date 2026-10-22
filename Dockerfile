@@ -35,6 +35,9 @@ RUN chsh -s /bin/bash $USERNAME
 USER $USERNAME
 WORKDIR /app
 COPY --exclude=build --exclude=cmake-build-debug --chown=$USERNAME:$USERNAME . /app
+USER root
+RUN chown -R $USERNAME:$USERNAME /app
+USER $USERNAME
 
 # Set environment variables for GUI support
 RUN [ -z "$WAYLAND_DISPLAY" ] && echo 'export DISPLAY='"$DISPLAY" >> ~/.bashrc && export DISPLAY=$DISPLAY || echo 'export WAYLAND_DISPLAY='"$WAYLAND_DISPLAY" >> /home/plt/.bashrc && export WAYLAND_DISPLAY=$WAYLAND_DISPLAY 

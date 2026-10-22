@@ -1,4 +1,4 @@
-#include "../include/State/DrawDice.h"
+#include "State/DrawDice.h"
 #include <random>
 
 namespace State {

@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
 
-#include "../include/State/ClassicTile.h"
+#include "State/ClassicTile.h"
 
 using namespace State;
 
