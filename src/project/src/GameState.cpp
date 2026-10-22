@@ -11,6 +11,10 @@ GameState::GameState() :
     dice_Draw(),
     stone(Stone()),
     dragon(Dragon()) {
+        for (int i=0;i<4;i++) {
+            players.emplace_back(Player(static_cast<Color>(i)));
+        }
+        current_Player = players[turn%players.size()];
 }
 
 int GameState::get_turn() {
