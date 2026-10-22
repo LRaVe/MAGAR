@@ -18,7 +18,7 @@ int GameState::get_turn() {
 }
 
 Board GameState::get_board() {
-    return board;
+    return std::move(board);
 }
 
 Player GameState::get_current_player(){
