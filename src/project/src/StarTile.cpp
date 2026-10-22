@@ -7,7 +7,9 @@ using namespace std;
 
 using namespace State;
 
+State::StarTile::StarTile (Position pos) : Tile (pos){
 
+}
 
 
 void StarTile::effect() {
