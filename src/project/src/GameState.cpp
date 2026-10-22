@@ -9,8 +9,8 @@ GameState::GameState() :
     board(Board()),
     possible_Moves(),
     dice_Draw(),
-    stone(Stone()),
-    dragon(Dragon()) {
+    stone(Stone(Position(0,0))),
+    dragon(Dragon(Position(0,0)))  {
         for (int i=0;i<4;i++) {
             players.emplace_back(Player(static_cast<Color>(i)));
         }
