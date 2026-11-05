@@ -9,7 +9,7 @@ generate_dia_header(
   "${project_include_dir}"
 )
 
-file(GLOB_RECURSE project_sources *.cpp)
+file(GLOB_RECURSE project_sources CONFIGURE_DEPENDS *.cpp)
 
 if(project_sources)
   add_library(${lib_project_target} STATIC

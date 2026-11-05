@@ -8,3 +8,4 @@ Dragon::Dragon(Position position) : Pawn(position) {
 
 }
 
+Dragon::~Dragon() {}

@@ -21,6 +21,8 @@ GameState::GameState() :
         add_player(Color::Yellow, Position(3,0),Position(3,1));
     }
 
+GameState::~GameState() {}
+
 int GameState::get_turn() {
     return turn;
 }

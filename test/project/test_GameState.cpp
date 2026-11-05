@@ -3,7 +3,7 @@
 
 BOOST_AUTO_TEST_CASE(TestStaticAssert)
 {
-  BOOST_CHECK(1);
+    BOOST_CHECK(1);
 }
 
 BOOST_AUTO_TEST_CASE(GameState_compilation_test)

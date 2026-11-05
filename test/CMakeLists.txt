@@ -91,8 +91,8 @@ endfunction()
 
 add_subdirectory(shared)
 add_subdirectory(client)
+add_subdirectory(project)
 #add_subdirectory(server)
 
 
 # vim: set sw=2 sts=2 et:
-

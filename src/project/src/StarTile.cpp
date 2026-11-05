@@ -11,6 +11,7 @@ State::StarTile::StarTile (Position pos) : Tile (pos){
 
 }
 
+StarTile::~StarTile() {}
 
 void StarTile::effect() {
     cout << "Star tile effect" << endl;

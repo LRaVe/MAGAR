@@ -10,6 +10,8 @@ CenterTile::CenterTile(Position pos) : Tile(pos) {
 
 }
 
+CenterTile::~CenterTile() {}
+
 void CenterTile::effect() {
     cout << "Center tile effect" << endl;
 }

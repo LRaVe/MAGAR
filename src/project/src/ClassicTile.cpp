@@ -10,6 +10,8 @@ ClassicTile::ClassicTile(Position pos) : Tile(pos) {
 
 }
 
+ClassicTile::~ClassicTile() {}
+
 void ClassicTile::effect() {
     cout << "Classic tile effect" << endl;
 }

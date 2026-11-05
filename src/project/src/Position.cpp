@@ -6,6 +6,8 @@ Position::Position(int q, int r) : q(q), r(r) {
 
 }
 
+Position::~Position() {}
+
 int Position::s(){
     return - q -r;
 }

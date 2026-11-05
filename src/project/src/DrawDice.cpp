@@ -5,6 +5,9 @@ namespace State {
 
     DrawDice::DrawDice() { //constructeur
     }
+
+    DrawDice::~DrawDice(){}
+
     void DrawDice::roll(int nb_of_dice) { //méthode de lancer de dé, qui prends en entrée le nombre de dés lancer et retourne
         draw.clear(); //reset du précédent
 
@@ -13,7 +16,7 @@ namespace State {
             WARRIOR, WARRIOR,
             SORCERER, SORCERER,
             TRISKELL, TRISKELL
-          };
+        };
 
         //gestion de l'aléatoire
         static std::random_device rd;

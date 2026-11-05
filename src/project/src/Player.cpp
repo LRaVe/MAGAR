@@ -8,3 +8,13 @@ Player::Player(Color color, Position warrior_position, Position sorcerer_positio
     color(color),
     warrior(color, warrior_position),
     sorcerer(color, sorcerer_position) {}
+
+Player::~Player() {}
+
+Warrior& Player::get_warrior() {
+    return warrior;
+}
+
+Sorcerer& Player::get_sorcerer() {
+    return sorcerer;
+}
