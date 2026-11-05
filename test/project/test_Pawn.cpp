@@ -34,7 +34,7 @@ BOOST_AUTO_TEST_CASE(Pawn_setters_test)
         pawn.setPosition(State::Position(3,4));
         BOOST_CHECK_EQUAL(pawn.getPosition().q,3);
         BOOST_CHECK_EQUAL(pawn.getPosition().r,4);
-        BOOST_CHECK_EQUAL(pawn.getPosition().s,0);
+        BOOST_CHECK_EQUAL(pawn.getPosition().s(),0);
 
     }
 }
