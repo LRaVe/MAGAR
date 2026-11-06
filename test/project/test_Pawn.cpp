@@ -20,9 +20,9 @@ BOOST_AUTO_TEST_CASE(Pawn_getters_test)
 {
     {
         State::Pawn pawn(State::Position(1,2));
-        BOOST_CHECK_EQUAL(pawn.getPosition().q,1);
-        BOOST_CHECK_EQUAL(pawn.getPosition().r,2);
-        BOOST_CHECK_EQUAL(pawn.getPosition().s,0);
+        BOOST_CHECK_EQUAL(pawn.get_position().q,1);
+        BOOST_CHECK_EQUAL(pawn.get_position().r,2);
+        BOOST_CHECK_EQUAL(pawn.get_position().s(),0);
 
     }
 }
@@ -31,10 +31,10 @@ BOOST_AUTO_TEST_CASE(Pawn_setters_test)
 {
     {
         State::Pawn pawn(State::Position(1,2));
-        pawn.setPosition(State::Position(3,4));
-        BOOST_CHECK_EQUAL(pawn.getPosition().q,3);
-        BOOST_CHECK_EQUAL(pawn.getPosition().r,4);
-        BOOST_CHECK_EQUAL(pawn.getPosition().s(),0);
+        pawn.set_position(State::Position(3,4));
+        BOOST_CHECK_EQUAL(pawn.get_position().q,3);
+        BOOST_CHECK_EQUAL(pawn.get_position().r,4);
+        BOOST_CHECK_EQUAL(pawn.get_position().s(),0);
 
     }
 }

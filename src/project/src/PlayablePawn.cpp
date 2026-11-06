@@ -11,10 +11,4 @@ PlayablePawn::PlayablePawn(Color color, Position position) : Pawn(position), col
 
 PlayablePawn::~PlayablePawn() = default;
 
-void PlayablePawn::attack_pawn(Pawn pawn) {
 
-}
-
-void PlayablePawn::move(Position position) {
-
-}

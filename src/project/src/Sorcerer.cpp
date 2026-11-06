@@ -17,6 +17,8 @@ Place Sorcerer::get_place() {
     return this->place;
 }
 
-void Sorcerer::attack_pawn(Pawn pawn) {}
 
-void Sorcerer::cast_spell(int no_of_spell) {}
+
+void Sorcerer::cast_spell(int ) {
+    
+}

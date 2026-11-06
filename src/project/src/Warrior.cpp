@@ -17,4 +17,3 @@ Place Warrior::get_place() {
     return this->place;
 }
 
-void Warrior::attack_pawn(Pawn pawn) {}

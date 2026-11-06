@@ -3,41 +3,39 @@
 #include "State/PlayablePawn.h"
 #include "State/AttackDice.h"
 #include <cmath>
-#include <algorithm>
 #include <iostream>
 
+using namespace State;
 
-State::AttackAction::AttackAction(PlayablePawn* attacker, PlayablePawn* target) : attacker(attacker), target(target) {
+AttackAction::AttackAction(PlayablePawn* attacker, PlayablePawn* target) : attacker(attacker), target(target) {
 
 }
 
-namespace State //pas sûr du bail bro
+bool AttackAction::areHexAdjacent(const Position& p1, const Position& p2) // à supprimer potentiellement, si redondante
 {
-    static bool areHexAdjacent(Position& p1, Position& p2) // à supprimer potentiellement, si redondante
-    {
-        int dq = std::abs(p1.q - p2.q);
-        int dr = std::abs(p1.r - p2.r);
-        int ds = std::abs(p1.s() - p2.s());
+    int dq = std::abs(p1.q - p2.q);
+    int dr = std::abs(p1.r - p2.r);
+    int ds = std::abs(p1.s() - p2.s());
 
-        //Distance hexagonale en coordonnés cubiques
-        int distance = (dq + dr + ds) / 2;
-        return distance == 1;
-    }
-
-    static int countSuccesses(const std::vector<bool>& draw)
-    {
-        int count = 0;
-        for (bool hit : draw)
-        {
-            if (hit)
-            {
-                count++;
-            }
-        }
-        return count;
-    }
+    //Distance hexagonale en coordonnés cubiques
+    int distance = (dq + dr + ds) / 2;
+    return distance == 1;
 }
-void State::AttackAction::execute(GameState& state){
+
+int AttackAction::countSuccesses(const std::vector<bool>& draw)
+{
+    int count = 0;
+    for (bool hit : draw)
+    {
+        if (hit)
+        {
+            count++;
+        }
+    }
+    return count;
+}
+
+void AttackAction::execute(GameState&){
     //verification préliminaires : l'un des deux est invalide ou le pion s'attaque lui même
     if (!attacker || !target)
     {
