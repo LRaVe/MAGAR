@@ -43,11 +43,11 @@ Board::Board() {
 }
 
 void Board::set_tile_at(const Position& pos, unique_ptr<Tile> tile) {
-    board[pos.r+5][pos.q+5] = std::move(tile);
+    board[pos.r+BOARD_RADIUS][pos.q+BOARD_RADIUS] = std::move(tile);
 }
 
 unique_ptr<Tile> Board::get_tile_from(const Position& pos) {
-    return std::move(board[pos.r-5][pos.q-5]);
+    return std::move(board[pos.r+BOARD_RADIUS][pos.q+BOARD_RADIUS]);
 }
 
 vector<Position> start_tile_list(){

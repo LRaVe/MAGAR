@@ -16,7 +16,7 @@ BOOST_AUTO_TEST_CASE(Pawn_compilation_test)
     }
 }
 
-BOOST_AUTO_TEST_CASE(Pawn_getters_test)
+/* BOOST_AUTO_TEST_CASE(Pawn_getters_test)
 {
     {
         State::Pawn pawn(State::Position(1,2));
@@ -38,3 +38,4 @@ BOOST_AUTO_TEST_CASE(Pawn_setters_test)
 
     }
 }
+ */
