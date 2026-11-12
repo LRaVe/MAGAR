@@ -5,6 +5,9 @@ namespace State {
 
     AttackDice::AttackDice() { //constructeur
     }
+
+    AttackDice::~AttackDice() = default;
+
     void AttackDice::roll(int nb_of_dice) { //méthode de lancer de dé, qui prends en entrée le nombre de dés lancer et retourne
         attack_draw.clear(); //reset du précédent
 

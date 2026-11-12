@@ -11,8 +11,13 @@ PlayablePawn::PlayablePawn(Color color, Position position) : Pawn(position), col
 
 PlayablePawn::~PlayablePawn() = default;
 
+void PlayablePawn::set_attack(int value) {
+    attack = value;
+}
 
-
+int PlayablePawn::get_attack() const {
+    return attack;
+}
 
 void PlayablePawn::set_place(Place new_place) {
     place = new_place;

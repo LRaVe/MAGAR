@@ -11,6 +11,8 @@ AttackAction::AttackAction(PlayablePawn* attacker, PlayablePawn* target) : attac
 
 }
 
+AttackAction::~AttackAction() = default;
+
 bool AttackAction::areHexAdjacent(const Position& p1, const Position& p2) // à supprimer potentiellement, si redondante
 {
     int dq = std::abs(p1.q - p2.q);
