@@ -10,6 +10,6 @@ Sorcerer::Sorcerer(Color color, Position position) : PlayablePawn(color,position
 Sorcerer::~Sorcerer() {}
 
 
-void Sorcerer::cast_spell(int ) {
+void Sorcerer::cast_spell(Spell ) {
     
 }
