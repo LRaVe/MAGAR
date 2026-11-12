@@ -14,6 +14,12 @@ generate_dia_header(
   "${project_include_dir}"
 )
 
+generate_dia_header(
+  "${CMAKE_CURRENT_SOURCE_DIR}/../render.dia"
+  "${project_include_dir}"
+)
+
+
 file(GLOB_RECURSE project_sources CONFIGURE_DEPENDS *.cpp)
 
 if(project_sources)
