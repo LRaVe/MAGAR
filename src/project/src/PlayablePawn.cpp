@@ -12,3 +12,12 @@ PlayablePawn::PlayablePawn(Color color, Position position) : Pawn(position), col
 PlayablePawn::~PlayablePawn() = default;
 
 
+
+
+void PlayablePawn::set_place(Place new_place) {
+    place = new_place;
+}
+
+Place PlayablePawn::get_place() {
+    return place;
+}
