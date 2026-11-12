@@ -64,8 +64,7 @@ vector<Position> center_tile_list() {
     return {Position(0,0)};
 }
 
-vector<Position> get_circle_tile_list(int radius)
-{
+vector<Position> get_circle_tile_list(int radius) {
     vector<Position> result = {};
     for (int q = -radius; q <= radius; q++) {
         int r1 = max(-radius, -q - radius);
@@ -78,8 +77,7 @@ vector<Position> get_circle_tile_list(int radius)
     return result;
 }
 
-vector<Position> get_circle_tile_list(int radius, int center)
-{
+vector<Position> get_circle_tile_list(int radius, int center) {
     vector<Position> result = get_circle_tile_list(radius);
     for (Position& pos : result) {
         pos.q += center;
