@@ -30,7 +30,7 @@ Board::Board() {
     set_tiles_from_list<ClassicTile>(get_circle_tile_list(BOARD_RADIUS));
 
     // Nest Tile
-    set_tiles_from_list<ClassicTile>(get_circle_tile_list(NEST_RADIUS));
+    set_tiles_from_list<NestTile>(get_circle_tile_list(NEST_RADIUS));
 
     // Star Tile
     set_tiles_from_list<StarTile>(start_tile_list());
