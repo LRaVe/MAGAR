@@ -4,7 +4,7 @@
 
 using namespace State;
 
-Heal::Heal(PlayablePawn* target) {
+Heal::Heal(PlayablePawn* target) : Spell() { 
     this->target = target; 
 }
 

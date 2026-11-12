@@ -3,7 +3,7 @@
 using namespace State;
 
 Position::Position(int q, int r) : q(q), r(r) {
-
+    
 }
 
 Position::~Position() {}
