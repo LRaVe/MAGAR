@@ -4,12 +4,7 @@
 
 using namespace State;
 
-Heal::Heal(PlayablePawn* target) : Spell() { 
-    this->target = target; 
-}
-
-Heal::~Heal() {
-}
+Heal::Heal(PlayablePawn* target) : Spell(), target(target) {}
 
 void Heal::execute(GameState& state) {
     target->set_place(Place::Camp);

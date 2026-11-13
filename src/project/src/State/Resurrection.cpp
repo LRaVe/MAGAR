@@ -4,9 +4,7 @@
 
 using namespace State;
 
-Resurrection::Resurrection(PlayablePawn* target) : Spell() {
-    this->target=target;
-}
+Resurrection::Resurrection(PlayablePawn* target) : Spell(), target(target) {}
 
 void Resurrection::execute(GameState& state) {
     target->set_place(Place::Camp);

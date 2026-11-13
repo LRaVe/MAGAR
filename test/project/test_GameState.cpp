@@ -16,7 +16,7 @@ BOOST_AUTO_TEST_CASE(GameState_initial_players)
     State::GameState game_state;
     auto players = game_state.get_players();
 
-    BOOST_REQUIRE_EQUAL(players.size(), 4);
+    BOOST_CHECK_EQUAL(players.size(), 4);
     for (auto& player : players) {
         BOOST_CHECK_EQUAL(
             player.get_warrior().get_place(),
