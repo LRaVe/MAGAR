@@ -1,6 +1,7 @@
 #include "GameEngine/GameEngine.h"
-#include "State/GameState.h"
-#include "State/Action.h"
+#include "state/GameState.h"
+#include "state/Action.h"
+
 
 namespace GameEngine {
 
