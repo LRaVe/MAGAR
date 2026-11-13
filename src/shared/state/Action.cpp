@@ -1,6 +1,6 @@
-#include "State/Action.h"
+#include "state/Action.h"
 
-namespace State {
+namespace state {
 
 Action::Action() {}
 

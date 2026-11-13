@@ -1,7 +1,7 @@
 #include "render/StateRender.h"
 using namespace render;
 
-StateRender::StateRender (sf::RenderWindow& window, State::GameState& GameState) : window(window), currentState(GameState) {
+StateRender::StateRender (sf::RenderWindow& window, state::GameState& GameState) : window(window), currentState(GameState) {
     layers = {};
 }
 

@@ -10,8 +10,8 @@
 
 namespace state
 {
-    HealAction::HealAction(PlayablePawn& target, const std::vector<state::Dice>& draw)
-        : target(&target), draw(draw) {
+    HealAction::HealAction(PlayablePawn* target, const std::vector<state::Dice>& draw)
+        : target(target), draw(draw) {
     }
 
     HealAction::~HealAction() = default;

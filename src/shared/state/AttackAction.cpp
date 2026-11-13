@@ -1,11 +1,11 @@
-#include "State/AttackAction.h"
-#include "State/GameState.h"
-#include "State/PlayablePawn.h"
-#include "State/AttackDice.h"
+#include "state/AttackAction.h"
+#include "state/GameState.h"
+#include "state/PlayablePawn.h"
+#include "state/AttackDice.h"
 #include <cmath>
 #include <iostream>
 
-using namespace State;
+using namespace state;
 
 AttackAction::AttackAction(PlayablePawn* attacker, PlayablePawn* target) : attacker(attacker), target(target) {
 
