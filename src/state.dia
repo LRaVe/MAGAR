@@ -5786,13 +5786,13 @@ template &lt;typename TileType&gt;#</dia:string>
         <dia:point val="38.5132,2.53188"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="38.4632,2.48188;56.0107,7.78188"/>
+        <dia:rectangle val="38.4632,2.48188;56.0157,7.78188"/>
       </dia:attribute>
       <dia:attribute name="elem_corner">
         <dia:point val="38.5132,2.53188"/>
       </dia:attribute>
       <dia:attribute name="elem_width">
-        <dia:real val="17.447499999999998"/>
+        <dia:real val="17.452500000000001"/>
       </dia:attribute>
       <dia:attribute name="elem_height">
         <dia:real val="5.2000000000000002"/>
@@ -5960,16 +5960,16 @@ template &lt;typename TileType&gt;#</dia:string>
             <dia:string>#void#</dia:string>
           </dia:attribute>
           <dia:attribute name="visibility">
-            <dia:enum val="2"/>
+            <dia:enum val="0"/>
           </dia:attribute>
           <dia:attribute name="comment">
             <dia:string>#c state qui modifie tout#</dia:string>
           </dia:attribute>
           <dia:attribute name="abstract">
-            <dia:boolean val="false"/>
+            <dia:boolean val="true"/>
           </dia:attribute>
           <dia:attribute name="inheritance_type">
-            <dia:enum val="1"/>
+            <dia:enum val="0"/>
           </dia:attribute>
           <dia:attribute name="query">
             <dia:boolean val="false"/>
@@ -7030,17 +7030,17 @@ template &lt;typename TileType&gt;#</dia:string>
     </dia:object>
     <dia:object type="UML - Generalization" version="1" id="O32">
       <dia:attribute name="obj_pos">
-        <dia:point val="47.2369,7.73188"/>
+        <dia:point val="47.2394,7.73188"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="27.9756,7.68188;48.0869,13.651"/>
+        <dia:rectangle val="27.9756,7.68188;48.0894,13.651"/>
       </dia:attribute>
       <dia:attribute name="meta">
         <dia:composite type="dict"/>
       </dia:attribute>
       <dia:attribute name="orth_points">
-        <dia:point val="47.2369,7.73188"/>
-        <dia:point val="47.2369,11.0664"/>
+        <dia:point val="47.2394,7.73188"/>
+        <dia:point val="47.2394,11.0664"/>
         <dia:point val="28.0256,11.0664"/>
         <dia:point val="28.0256,13.601"/>
       </dia:attribute>
@@ -7080,17 +7080,17 @@ template &lt;typename TileType&gt;#</dia:string>
     </dia:object>
     <dia:object type="UML - Generalization" version="1" id="O33">
       <dia:attribute name="obj_pos">
-        <dia:point val="47.2369,7.73188"/>
+        <dia:point val="47.2394,7.73188"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="46.3869,7.68188;55.6465,14.6606"/>
+        <dia:rectangle val="46.3894,7.68188;55.6465,14.6606"/>
       </dia:attribute>
       <dia:attribute name="meta">
         <dia:composite type="dict"/>
       </dia:attribute>
       <dia:attribute name="orth_points">
-        <dia:point val="47.2369,7.73188"/>
-        <dia:point val="47.2369,11.5712"/>
+        <dia:point val="47.2394,7.73188"/>
+        <dia:point val="47.2394,11.5712"/>
         <dia:point val="55.5965,11.5712"/>
         <dia:point val="55.5965,14.6106"/>
       </dia:attribute>
@@ -7129,17 +7129,17 @@ template &lt;typename TileType&gt;#</dia:string>
     </dia:object>
     <dia:object type="UML - Generalization" version="1" id="O34">
       <dia:attribute name="obj_pos">
-        <dia:point val="47.237,7.73188"/>
+        <dia:point val="47.2394,7.73188"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="27.7175,7.68188;48.087,25.8064"/>
+        <dia:rectangle val="27.7175,7.68188;48.0894,25.8064"/>
       </dia:attribute>
       <dia:attribute name="meta">
         <dia:composite type="dict"/>
       </dia:attribute>
       <dia:attribute name="orth_points">
-        <dia:point val="47.237,7.73188"/>
-        <dia:point val="47.237,23.6477"/>
+        <dia:point val="47.2394,7.73188"/>
+        <dia:point val="47.2394,23.6477"/>
         <dia:point val="27.7675,23.6477"/>
         <dia:point val="27.7675,25.7564"/>
       </dia:attribute>
@@ -8808,7 +8808,7 @@ template &lt;typename TileType&gt;#</dia:string>
             <dia:boolean val="false"/>
           </dia:attribute>
           <dia:attribute name="inheritance_type">
-            <dia:enum val="1"/>
+            <dia:enum val="2"/>
           </dia:attribute>
           <dia:attribute name="query">
             <dia:boolean val="false"/>
@@ -8893,13 +8893,13 @@ template &lt;typename TileType&gt;#</dia:string>
     </dia:object>
     <dia:object type="UML - Class" version="0" id="O51">
       <dia:attribute name="obj_pos">
-        <dia:point val="54.2292,21.6424"/>
+        <dia:point val="54.1292,20.6924"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="54.1792,21.5924;82.4992,28.2924"/>
+        <dia:rectangle val="54.0792,20.6424;82.3992,27.3424"/>
       </dia:attribute>
       <dia:attribute name="elem_corner">
-        <dia:point val="54.2292,21.6424"/>
+        <dia:point val="54.1292,20.6924"/>
       </dia:attribute>
       <dia:attribute name="elem_width">
         <dia:real val="28.219999999999999"/>
@@ -9227,18 +9227,18 @@ template &lt;typename TileType&gt;#</dia:string>
     </dia:object>
     <dia:object type="UML - Generalization" version="1" id="O52">
       <dia:attribute name="obj_pos">
-        <dia:point val="47.2369,7.73188"/>
+        <dia:point val="47.2394,7.73188"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="46.3869,7.68188;54.2792,26.1824"/>
+        <dia:rectangle val="46.3894,7.68188;54.1792,25.2324"/>
       </dia:attribute>
       <dia:attribute name="meta">
         <dia:composite type="dict"/>
       </dia:attribute>
       <dia:attribute name="orth_points">
-        <dia:point val="47.2369,7.73188"/>
-        <dia:point val="47.2369,25.3424"/>
-        <dia:point val="54.2292,25.3424"/>
+        <dia:point val="47.2394,7.73188"/>
+        <dia:point val="47.2394,24.3924"/>
+        <dia:point val="54.1292,24.3924"/>
       </dia:attribute>
       <dia:attribute name="orth_orient">
         <dia:enum val="1"/>
@@ -9276,17 +9276,17 @@ template &lt;typename TileType&gt;#</dia:string>
     </dia:object>
     <dia:object type="UML - Generalization" version="1" id="O53">
       <dia:attribute name="obj_pos">
-        <dia:point val="47.237,7.73188"/>
+        <dia:point val="47.2394,7.73188"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="46.387,7.68188;55.8592,29.6524"/>
+        <dia:rectangle val="46.3894,7.68188;55.8592,29.6524"/>
       </dia:attribute>
       <dia:attribute name="meta">
         <dia:composite type="dict"/>
       </dia:attribute>
       <dia:attribute name="orth_points">
-        <dia:point val="47.237,7.73188"/>
-        <dia:point val="47.237,27.9977"/>
+        <dia:point val="47.2394,7.73188"/>
+        <dia:point val="47.2394,27.9977"/>
         <dia:point val="55.8092,27.9977"/>
         <dia:point val="55.8092,29.6024"/>
       </dia:attribute>
@@ -10783,17 +10783,17 @@ template &lt;typename TileType&gt;#</dia:string>
     </dia:object>
     <dia:object type="UML - Generalization" version="1" id="O63">
       <dia:attribute name="obj_pos">
-        <dia:point val="47.2369,2.53188"/>
+        <dia:point val="47.2394,2.53188"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="43.7309,-20.624;48.0869,2.58188"/>
+        <dia:rectangle val="43.7309,-20.624;48.0894,2.58188"/>
       </dia:attribute>
       <dia:attribute name="meta">
         <dia:composite type="dict"/>
       </dia:attribute>
       <dia:attribute name="orth_points">
-        <dia:point val="47.2369,2.53188"/>
-        <dia:point val="47.2369,-9.42106"/>
+        <dia:point val="47.2394,2.53188"/>
+        <dia:point val="47.2394,-9.42106"/>
         <dia:point val="43.7809,-9.42106"/>
         <dia:point val="43.7809,-20.574"/>
       </dia:attribute>
