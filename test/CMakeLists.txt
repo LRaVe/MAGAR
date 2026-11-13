@@ -91,7 +91,6 @@ endfunction()
 
 add_subdirectory(shared)
 add_subdirectory(client)
-add_subdirectory(project)
 #add_subdirectory(server)
 
 

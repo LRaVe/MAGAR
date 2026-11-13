@@ -1,5 +1,5 @@
 #include <boost/test/unit_test.hpp>
-#include <State/Pawn.h>
+#include "../../src/shared/state/Pawn.h"
 
 BOOST_AUTO_TEST_CASE(TestStaticAssert)
 {
@@ -10,7 +10,7 @@ BOOST_AUTO_TEST_CASE(Pawn_compilation_test)
 {
     {
         // check that the code compiles
-        State::Pawn pawn(State::Position(0,0));
+        state::Pawn pawn(state::Position(0,0));
         (void)pawn; // avoid unused variable warning
         BOOST_CHECK(true); 
     }
