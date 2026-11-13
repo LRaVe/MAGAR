@@ -17,7 +17,7 @@ BOOST_AUTO_TEST_CASE(Board_initializes_center_tile)
 {
     State::Board board;
 
-    std::unique_ptr<State::Tile> tile =
+    std::shared_ptr<State::Tile> tile =
         board.get_tile_from(State::Position(0, 0));
 
     BOOST_REQUIRE(tile);
@@ -33,9 +33,9 @@ BOOST_AUTO_TEST_CASE(Board_stores_and_retrieves_tile)
 
     board.set_tile_at(
         position,
-        std::make_unique<State::ClassicTile>(position));
+        std::make_shared<State::ClassicTile>(position));
 
-    std::unique_ptr<State::Tile> tile = board.get_tile_from(position);
+    std::shared_ptr<State::Tile> tile = board.get_tile_from(position);
 
     BOOST_REQUIRE(tile);
     BOOST_CHECK(dynamic_cast<State::ClassicTile*>(tile.get()));
@@ -50,10 +50,10 @@ BOOST_AUTO_TEST_CASE(Board_retrieving_tile_removes_it)
 
     board.set_tile_at(
         position,
-        std::make_unique<State::ClassicTile>(position));
+        std::make_shared<State::ClassicTile>(position));
 
-    std::unique_ptr<State::Tile> first = board.get_tile_from(position);
-    std::unique_ptr<State::Tile> second = board.get_tile_from(position);
+    std::shared_ptr<State::Tile> first = board.get_tile_from(position);
+    std::shared_ptr<State::Tile> second = board.get_tile_from(position);
 
     BOOST_REQUIRE(first);
     BOOST_CHECK(!second);
