@@ -1,7 +1,7 @@
-#include "State/Warrior.h"
-#include "State/AttackAction.h"
+#include "state/Warrior.h"
+#include "state/AttackAction.h"
 
-using namespace State;
+using namespace state;
 
 Warrior::Warrior(Color color, Position position) : PlayablePawn(color,position) {
 

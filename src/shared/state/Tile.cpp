@@ -1,7 +1,7 @@
-#include "State/Tile.h"
-#include "State/Position.h"
+#include "state/Tile.h"
+#include "state/Position.h"
 
-using namespace State;
+using namespace state;
 
 Tile::Tile (Position pos) : position (pos) {
     

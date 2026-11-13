@@ -1,8 +1,8 @@
-#include "State/Stone.h"
+#include "state/Stone.h"
 
-#include "../include/State/Stone.h"
+#include "state/Stone.h"
 
-using namespace State;
+using namespace state;
 
 Stone::Stone(Position position) : Pawn(position) {
 

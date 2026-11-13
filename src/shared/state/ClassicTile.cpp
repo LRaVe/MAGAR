@@ -1,9 +1,9 @@
 #include <iostream>
 using namespace std;
 
-#include "State/ClassicTile.h"
+#include "state/ClassicTile.h"
 
-using namespace State;
+using namespace state;
 
 
 ClassicTile::ClassicTile(Position pos) : Tile(pos) {

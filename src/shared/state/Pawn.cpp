@@ -1,23 +1,23 @@
-#include "State/Pawn.h"
+#include "state/Pawn.h"
 
-using namespace State;
+using namespace state;
 
-State::Pawn::Pawn(Position pos) : position(pos) {
+state::Pawn::Pawn(Position pos) : position(pos) {
     
 }
 
-State::Pawn::~Pawn() {}
+state::Pawn::~Pawn() {}
 
-int State::Pawn::get_distance_from(Pawn pawn) {
+int state::Pawn::get_distance_from(Pawn pawn) {
     return 0;
 }
 
 
 
-State::Position State::Pawn::get_position() {
+state::Position state::Pawn::get_position() {
     return position;
 }
 
-void State::Pawn::set_position(Position pos) {
+void state::Pawn::set_position(Position pos) {
     position = pos;
 }

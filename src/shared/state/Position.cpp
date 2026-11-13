@@ -1,6 +1,6 @@
-#include "State/Position.h"
+#include "state/Position.h"
 
-using namespace State;
+using namespace state;
 
 Position::Position(int q, int r) : q(q), r(r) {
     

@@ -1,9 +1,9 @@
 #include <iostream>
 using namespace std;
 
-#include "State/NestTile.h"
+#include "state/NestTile.h"
 
-using namespace State;
+using namespace state;
 
 
 NestTile::NestTile(Position pos) :  Tile(pos) {

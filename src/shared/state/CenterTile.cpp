@@ -1,9 +1,9 @@
 #include <iostream>
 using namespace std;
 
-#include "State/CenterTile.h"
+#include "state/CenterTile.h"
 
-using namespace State;
+using namespace state;
 
 
 CenterTile::CenterTile(Position pos) : Tile(pos) {

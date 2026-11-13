@@ -1,10 +1,12 @@
-#include "State/Heal.h"
-#include "State/Place.h"
-#include "State/PlayablePawn.h"
+#include "state/Heal.h"
+#include "state/Place.h"
+#include "state/PlayablePawn.h"
 
-using namespace State;
+using namespace state;
 
 Heal::Heal(PlayablePawn* target) : Spell(), target(target) {}
+
+Heal::~Heal() {}
 
 void Heal::execute(GameState& state) {
     target->set_place(Place::Camp);

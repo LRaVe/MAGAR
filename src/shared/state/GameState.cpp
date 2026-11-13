@@ -1,9 +1,9 @@
-#include "State/GameState.h"
-#include "State/Board.h"
+#include "state/GameState.h"
+#include "state/Board.h"
 
 #include <memory>
 const int NB_PLAYERS = 4;
-using namespace State;
+using namespace state;
 
 GameState::GameState() :
     turn(0),

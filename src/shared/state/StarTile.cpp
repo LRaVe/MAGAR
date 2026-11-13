@@ -1,13 +1,13 @@
 #include <iostream>
 using namespace std;
 
-#include "State/StarTile.h"
-#include "State/Position.h"
-#include "State/Tile.h"
+#include "state/StarTile.h"
+#include "state/Position.h"
+#include "state/Tile.h"
 
-using namespace State;
+using namespace state;
 
-State::StarTile::StarTile (Position pos) : Tile (pos){
+state::StarTile::StarTile (Position pos) : Tile (pos){
 
 }
 

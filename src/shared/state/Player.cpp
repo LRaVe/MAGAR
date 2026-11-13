@@ -1,7 +1,5 @@
-#include "State/Player.h"
-using namespace State;
-#include "State/Player.h"
-using namespace State;
+#include "state/Player.h"
+using namespace state;
 
 // constructor's attributes are: color, warrior, sorcerer
 Player::Player(Color color, Position warrior_position, Position sorcerer_position) : 

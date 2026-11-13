@@ -1,8 +1,8 @@
-#include "State/Sorcerer.h"
-#include "State/Spell.h"
-#include "State/AttackAction.h"
+#include "state/Sorcerer.h"
+#include "state/Spell.h"
+#include "state/AttackAction.h"
 
-using namespace State;
+using namespace state;
 
 Sorcerer::Sorcerer(Color color, Position position) : PlayablePawn(color,position) {
 

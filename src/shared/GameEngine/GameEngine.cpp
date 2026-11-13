@@ -5,7 +5,7 @@
 
 namespace GameEngine {
 
-GameEngine::GameEngine(State::GameState& state) : state(state) {
+GameEngine::GameEngine(state::GameState& state) : state(state) {
 
 }
 
@@ -20,7 +20,7 @@ void GameEngine::start_turn() {
     // Implementation of starting a turn
 }
 
-void GameEngine::submit_action(State::Action& action) {
+void GameEngine::submit_action(state::Action& action) {
     // Implementation of submitting an action
 }
 

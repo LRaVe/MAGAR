@@ -2,15 +2,15 @@
 // Created by plt on 11/12/26.
 //
 
-#include "State/HealAction.h"
-#include "State/PlayablePawn.h"
-#include "State/Warrior.h"
-#include "State/Sorcerer.h"
+#include "state/HealAction.h"
+#include "state/PlayablePawn.h"
+#include "state/Warrior.h"
+#include "state/Sorcerer.h"
 #include <algorithm>
 
-namespace State
+namespace state
 {
-    HealAction::HealAction(PlayablePawn& target, const std::vector<State::Dice>& draw)
+    HealAction::HealAction(PlayablePawn& target, const std::vector<state::Dice>& draw)
         : target(&target), draw(draw) {
     }
 

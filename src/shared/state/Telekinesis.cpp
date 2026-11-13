@@ -1,7 +1,7 @@
-#include "State/Telekinesis.h"
-#include "State/GameState.h"
+#include "state/Telekinesis.h"
+#include "state/GameState.h"
 
-using namespace State;
+using namespace state;
 
 Telekinesis::Telekinesis(Position destination) : Spell(), destination(destination) {}
 

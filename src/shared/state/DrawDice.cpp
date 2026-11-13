@@ -1,7 +1,7 @@
-#include "State/DrawDice.h"
+#include "state/DrawDice.h"
 #include <random>
 
-namespace State {
+namespace state {
 
     DrawDice::DrawDice() { //constructeur
     }

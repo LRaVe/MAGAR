@@ -1,15 +1,15 @@
-#include "State/Board.h"
+#include "state/Board.h"
 
 #include <memory>
 #include <iostream>
 using namespace std;
 
-#include "State/ClassicTile.h"
-#include "State/NestTile.h"
-#include "State/StarTile.h"
-#include "State/CenterTile.h"
+#include "state/ClassicTile.h"
+#include "state/NestTile.h"
+#include "state/StarTile.h"
+#include "state/CenterTile.h"
 
-using namespace State;
+using namespace state;
 
 constexpr int BOARD_RADIUS = 5;
 constexpr int BOARD_DIAMETER = 11;

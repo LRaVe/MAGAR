@@ -1,8 +1,8 @@
-#include "State/Dragon.h"
+#include "state/Dragon.h"
 
-#include "../include/State/Dragon.h"
+#include "state/Dragon.h"
 
-using namespace State;
+using namespace state;
 
 Dragon::Dragon(Position position) : Pawn(position) {
 

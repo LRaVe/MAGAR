@@ -1,8 +1,8 @@
-#include "State/Resurrection.h"
-#include "State/Place.h"
-#include "State/PlayablePawn.h"
+#include "state/Resurrection.h"
+#include "state/Place.h"
+#include "state/PlayablePawn.h"
 
-using namespace State;
+using namespace state;
 
 Resurrection::Resurrection(PlayablePawn* target) : Spell(), target(target) {}
 

@@ -1,5 +1,5 @@
-#include "State/PlayablePawn.h"
-using namespace State;
+#include "state/PlayablePawn.h"
+using namespace state;
 
 
 PlayablePawn::PlayablePawn(Color color, Position position) : Pawn(position), color(color) {

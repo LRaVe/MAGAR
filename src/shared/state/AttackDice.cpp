@@ -1,7 +1,7 @@
-#include "../include/State/AttackDice.h"
+#include "state/AttackDice.h"
 #include <random>
 
-namespace State {
+namespace state {
 
     AttackDice::AttackDice() { //constructeur
     }

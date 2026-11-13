@@ -1,7 +1,7 @@
-#include"State/MoveAction.h"
-#include "State/Pawn.h"
+#include"state/MoveAction.h"
+#include "state/Pawn.h"
 
-using namespace State;
+using namespace state;
 
 MoveAction::MoveAction(Pawn* pawn, Position destination) : pawn(pawn), destination(destination) {
 
