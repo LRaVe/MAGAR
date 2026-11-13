@@ -38,15 +38,15 @@ Board::Board() {
     // Center Tile
     vector<Position> center_tiles = center_tile_list();
     for (Position& pos : center_tiles) {
-        set_tile_at(pos, make_unique<CenterTile>(pos));
+        set_tile_at(pos, make_shared<CenterTile>(pos));
     }
 }
 
-void Board::set_tile_at(const Position& pos, unique_ptr<Tile> tile) {
+void Board::set_tile_at(const Position& pos, shared_ptr<Tile> tile) {
     board[pos.r+BOARD_RADIUS][pos.q+BOARD_RADIUS] = std::move(tile);
 }
 
-unique_ptr<Tile> Board::get_tile_from(const Position& pos) {
+shared_ptr<Tile> Board::get_tile_from(const Position& pos) {
     return std::move(board[pos.r+BOARD_RADIUS][pos.q+BOARD_RADIUS]);
 }
 
@@ -89,6 +89,6 @@ vector<Position> get_circle_tile_list(int radius, int center) {
 template <typename TileType>
 void Board::set_tiles_from_list(const vector<Position>& tile_list) {
     for (const Position& pos : tile_list) {
-        set_tile_at(pos, make_unique<TileType>(pos));
+        set_tile_at(pos, make_shared<TileType>(pos));
     }
 }
