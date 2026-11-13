@@ -8,11 +8,11 @@ void testSFML() {
 }
 // end of test SFML
 
-#include "../project/include/State.h"
-#include "../project/include/render.h"
+#include "state.h"
+#include "render.h"
 
 using namespace std;
-using namespace State;
+using namespace state;
 using namespace render;
 
 #define WINDOW_WIDTH 1200
