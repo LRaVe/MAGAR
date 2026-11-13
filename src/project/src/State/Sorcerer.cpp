@@ -1,5 +1,4 @@
 #include "State/Sorcerer.h"
-#include "../include/State/Sorcerer.h"
 #include "State/Spell.h"
 #include "State/AttackAction.h"
 
@@ -17,7 +16,7 @@ void Sorcerer::cast_spell(Spell spell, GameState& state) {
 }
 
 
-void Sorcerer::attack_pawn(PlayablePawn* pawn, GameState& state) {
+void Sorcerer::attack_pawn(PlayablePawn* pawn, GameState& state) { 
     AttackAction attack_action(this, pawn);
     attack_action.execute(state);
 }

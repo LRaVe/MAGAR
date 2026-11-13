@@ -8,6 +8,9 @@ Heal::Heal(PlayablePawn* target) : Spell() {
     this->target = target; 
 }
 
+Heal::~Heal() {
+}
+
 void Heal::execute(GameState& state) {
     target->set_place(Place::Camp);
 }

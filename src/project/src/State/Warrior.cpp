@@ -1,5 +1,4 @@
 #include "State/Warrior.h"
-#include "../include/State/Warrior.h"
 #include "State/AttackAction.h"
 
 using namespace State;
