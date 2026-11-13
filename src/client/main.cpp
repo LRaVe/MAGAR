@@ -8,7 +8,7 @@ void testSFML() {
 }
 // end of test SFML
 
-#include "state.h"
+#include <state.h>
 #include "render.h"
 
 using namespace std;
@@ -25,12 +25,10 @@ int main(int argc,char* argv[]){
     window.setVerticalSyncEnabled(true);
 
     // GameState
-    //GameState game_state = GameState();
+    GameState game_state = GameState();
 
     // Render State
-    //StateRender state_render = StateRender(window, game_state);
-
-
+    StateRender state_render = StateRender(window, game_state);
 
     while (window.isOpen()) {
         sf::Event event;
