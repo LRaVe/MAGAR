@@ -35,7 +35,7 @@ Player& GameState::get_current_player() {
     return players.at(current_Player_index);
 }
 
-std::vector<Action> GameState::get_possible_actions() {
+std::vector<std::shared_ptr<Action>> GameState::get_possible_actions() {
     return possible_Moves;
 }
 
