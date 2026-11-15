@@ -47,7 +47,7 @@ void Board::set_tile_at(const Position& pos, shared_ptr<Tile> tile) {
 }
 
 shared_ptr<Tile> Board::get_tile_from(const Position& pos) {
-    return std::move(board[pos.r+BOARD_RADIUS][pos.q+BOARD_RADIUS]);
+    return board[pos.r+BOARD_RADIUS][pos.q+BOARD_RADIUS];
 }
 
 vector<Position> star_tile_list(){
