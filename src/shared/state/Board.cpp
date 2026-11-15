@@ -57,8 +57,7 @@ vector<Position> star_tile_list(){
         Position(-4,0),Position(4,0),
         Position(-4,3),Position(1,3),
         Position(-2,4)
-    };
-}
+    }; }
 
 vector<Position> center_tile_list() {
     return {Position(0,0)};
@@ -74,7 +73,7 @@ vector<Position> get_circle_tile_list(int radius) {
             result.push_back(position);
         }
     }
-    return result;
+    return result; 
 }
 
 vector<Position> get_circle_tile_list(int radius, int center) {

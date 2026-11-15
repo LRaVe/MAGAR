@@ -2,5 +2,5 @@
 
 using namespace state;
 
-void Spell::execute(GameState&) {
+void Spell::execute(GameState&) const {
 }

@@ -6,7 +6,7 @@ using namespace state;
 
 Resurrection::Resurrection(PlayablePawn* target) : Spell(), target(target) {}
 
-void Resurrection::execute(GameState& state) {
+void Resurrection::execute(GameState& state) const {
     if (target && target->get_place() == Cimetery) {
         target->set_place(Camp);
     }

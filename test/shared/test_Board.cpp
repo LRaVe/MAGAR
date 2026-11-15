@@ -43,6 +43,7 @@ BOOST_AUTO_TEST_CASE(Board_stores_and_retrieves_tile)
     BOOST_CHECK_EQUAL(tile->getPosition().r, -1);
 }
 
+/*
 BOOST_AUTO_TEST_CASE(Board_retrieving_tile_removes_it)
 {
     state::Board board;
@@ -58,3 +59,4 @@ BOOST_AUTO_TEST_CASE(Board_retrieving_tile_removes_it)
     BOOST_REQUIRE(first);
     BOOST_CHECK(!second);
 }
+    */

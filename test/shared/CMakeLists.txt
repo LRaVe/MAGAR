@@ -4,4 +4,7 @@ add_custom_test(DrawDice)
 add_custom_test(Pawn)
 add_custom_test(PlayablePawn)
 add_custom_test(Board)
+add_custom_test(Player)
+add_custom_test(Sorcerer)
+add_custom_test(Warrior)
 # vim: set sw=2 sts=2 et:
