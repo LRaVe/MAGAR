@@ -4,7 +4,6 @@ using namespace state;
 
 PlayablePawn::PlayablePawn(Color color, Position position) : Pawn(position), color(color) {
     attack = 0;
-    is_wolf = false;
     place = Camp;
     nb_moves = 0;
 }
@@ -25,4 +24,12 @@ void PlayablePawn::set_place(Place new_place) {
 
 Place PlayablePawn::get_place() {
     return place;
+}
+
+int PlayablePawn::get_nb_moves() {
+    return nb_moves;
+}
+
+Color PlayablePawn::get_color() const {
+    return color;
 }
