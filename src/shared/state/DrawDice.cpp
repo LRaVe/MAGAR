@@ -3,10 +3,11 @@
 
 namespace state {
 
-    DrawDice::DrawDice() { //constructeur
+    DrawDice::DrawDice() {
+        roll(3);
     }
 
-    DrawDice::~DrawDice(){}
+    DrawDice::~DrawDice() = default;
 
     void DrawDice::roll(int nb_of_dice) { //méthode de lancer de dé, qui prends en entrée le nombre de dés lancer et retourne
         draw.clear(); //reset du précédent

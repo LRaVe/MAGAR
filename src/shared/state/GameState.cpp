@@ -43,6 +43,10 @@ std::vector<Player> GameState::get_players() {
     return players;
 }
 
+std::vector<Dice> GameState::get_draw_dice () {
+    return dice_Draw.get_draw();
+}
+
 Stone GameState::get_stone() {
     return stone;
 }
