@@ -15,7 +15,7 @@ constexpr int BOARD_RADIUS = 5;
 constexpr int BOARD_DIAMETER = 11;
 constexpr int NEST_RADIUS = 2;
 
-vector<Position> start_tile_list();
+vector<Position> star_tile_list();
 vector<Position> center_tile_list();
 vector<Position> get_circle_tile_list(int radius);
 vector<Position> get_circle_tile_list(int radius, int center);
@@ -33,7 +33,7 @@ Board::Board() {
     set_tiles_from_list<NestTile>(get_circle_tile_list(NEST_RADIUS));
 
     // Star Tile
-    set_tiles_from_list<StarTile>(start_tile_list());
+    set_tiles_from_list<StarTile>(star_tile_list());
 
     // Center Tile
     vector<Position> center_tiles = center_tile_list();
@@ -50,7 +50,7 @@ shared_ptr<Tile> Board::get_tile_from(const Position& pos) {
     return std::move(board[pos.r+BOARD_RADIUS][pos.q+BOARD_RADIUS]);
 }
 
-vector<Position> start_tile_list(){
+vector<Position> star_tile_list(){
     return {
         Position(2,-4),
         Position(-1,-3),Position(4,-3),
