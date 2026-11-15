@@ -15,14 +15,19 @@ using namespace std;
 using namespace state;
 using namespace render;
 
-#define WINDOW_WIDTH 1200
-#define WINDOW_HEIGHT 800
+const int WINDOW_WIDTH = 1200;
+const int WINDOW_HEIGHT = 800;
 
-int main(int argc,char* argv[]){
+// int argc,char* argv[]
+int main(){
 
     // Window
+    // sf::RenderWindow window(sf::VideoMode::getDesktopMode(), "Magar : Le Dragon et la Pierre" );
     sf::RenderWindow window( sf::VideoMode( { WINDOW_WIDTH, WINDOW_HEIGHT } ), "Magar : Le Dragon et la Pierre" );
     window.setVerticalSyncEnabled(true);
+    sf::View view(sf::FloatRect({0.f, 0.f}, {WINDOW_WIDTH, WINDOW_HEIGHT}));
+    view.setCenter({0.f, 0.f});
+    window.setView(view);
 
     // GameState
     GameState game_state = GameState();
@@ -36,7 +41,8 @@ int main(int argc,char* argv[]){
             if (event.type == sf::Event::Closed)
                 window.close();
         }
-        window.clear(sf::Color::Cyan);
+        window.clear(sf::Color::White);
+        state_render.render();
         window.display();
     }
     return 0;
