@@ -47,7 +47,7 @@ namespace state
     {
         if (can_apply() && target != nullptr)
         {
-            target->set_place(Arena);
+            target->set_place(Camp);
         }
     }
 }
