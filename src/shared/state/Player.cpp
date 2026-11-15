@@ -16,3 +16,7 @@ Warrior& Player::get_warrior() {
 Sorcerer& Player::get_sorcerer() {
     return sorcerer;
 }
+
+Color Player::getColor() {
+    return color;
+}
