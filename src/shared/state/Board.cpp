@@ -91,3 +91,11 @@ void Board::set_tiles_from_list(const vector<Position>& tile_list) {
         set_tile_at(pos, make_shared<TileType>(pos));
     }
 }
+
+std::vector<std::shared_ptr<Tile>> Board::get_tiles() const {
+    std::vector<std::shared_ptr<Tile>> result;
+    for (const auto& row : board)
+        for (const auto& tile : row)
+            if (tile) result.push_back(tile);
+    return result;
+}

@@ -7,14 +7,10 @@ Tile::Tile (Position pos) : position (pos) {
     
 }
 
-Tile::~Tile() {}
+Tile::~Tile() = default;
 
 void Tile::effect() {}
 
-const Position& Tile::getPosition() const {
+Position Tile::get_position() const {
     return position;
-}
-
-void Tile::setPosition(const Position& new_position) {
-    position = new_position;
 }

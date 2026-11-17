@@ -22,8 +22,8 @@ BOOST_AUTO_TEST_CASE(Board_initializes_center_tile)
 
     BOOST_REQUIRE(tile);
     BOOST_CHECK(dynamic_cast<state::CenterTile*>(tile.get()));
-    BOOST_CHECK_EQUAL(tile->getPosition().q, 0);
-    BOOST_CHECK_EQUAL(tile->getPosition().r, 0);
+    BOOST_CHECK_EQUAL(tile->get_position().q, 0);
+    BOOST_CHECK_EQUAL(tile->get_position().r, 0);
 }
 
 BOOST_AUTO_TEST_CASE(Board_stores_and_retrieves_tile)
@@ -39,8 +39,8 @@ BOOST_AUTO_TEST_CASE(Board_stores_and_retrieves_tile)
 
     BOOST_REQUIRE(tile);
     BOOST_CHECK(dynamic_cast<state::ClassicTile*>(tile.get()));
-    BOOST_CHECK_EQUAL(tile->getPosition().q, 1);
-    BOOST_CHECK_EQUAL(tile->getPosition().r, -1);
+    BOOST_CHECK_EQUAL(tile->get_position().q, 1);
+    BOOST_CHECK_EQUAL(tile->get_position().r, -1);
 }
 
 /*

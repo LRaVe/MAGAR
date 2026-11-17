@@ -1,8 +1,11 @@
 #include "render/TurnLayer.h"
 using namespace render;
+
 #include <iostream>
 
-TurnLayer::TurnLayer(int turn, state::Color current_player_color) : turn(turn), current_player_color(current_player_color) {
+#include "state/GameState.h"
+
+TurnLayer::TurnLayer(){
     if (!title_font.loadFromFile( "assets/fonts/PirataOne.ttf")) {
         std::cerr << "Police not found\n";
     }
@@ -10,11 +13,12 @@ TurnLayer::TurnLayer(int turn, state::Color current_player_color) : turn(turn), 
 
 TurnLayer::~TurnLayer () = default;
 
-void TurnLayer::render(sf::RenderWindow& window) {
-    title_draw(window);
+void TurnLayer::render(sf::RenderWindow& window,state::GameState& state) {
+    turn_draw(window, state.get_turn());
+    current_color_draw(window, state.get_current_player().getColor());
 }
 
-void TurnLayer::title_draw(sf::RenderWindow& window) const {
+void TurnLayer::turn_draw(sf::RenderWindow& window, int turn) const {
     // Turn Number
     sf::String turn_string = sf::String("Tour: ") + sf::String(std::to_string(turn));
     sf::Text turn_text(turn_string,title_font);
@@ -22,6 +26,10 @@ void TurnLayer::title_draw(sf::RenderWindow& window) const {
     turn_text.setCharacterSize( 25 );
     turn_text.setPosition({-590,-390});
     window.draw(turn_text);
+
+}
+
+void TurnLayer::current_color_draw(sf::RenderWindow& window, state::Color current_player_color) const {
 
     // Who's turn
     sf::String player_string;
