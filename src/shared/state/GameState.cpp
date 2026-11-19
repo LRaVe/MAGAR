@@ -39,7 +39,7 @@ std::vector<std::shared_ptr<Action>> GameState::get_possible_actions() {
     return possible_Moves;
 }
 
-std::vector<Player> GameState::get_players() {
+std::vector<Player>& GameState::get_players() {
     return players;
 }
 

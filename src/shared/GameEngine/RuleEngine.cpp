@@ -3,6 +3,11 @@
 #include "state/Action.h"
 #include "state/PlayablePawn.h"
 #include "state/Sorcerer.h"
+#include "state/MoveAction.h"
+#include "state/AttackAction.h"
+#include "state/Warrior.h"
+#include "state/Player.h"
+#include "state/Board.h"
 
 #include <memory>
 
@@ -19,23 +24,75 @@ bool RuleEngine::is_valid(state::GameState& game_state,
     return action.validate(*this, game_state);
 }
 
-std::vector<std::shared_ptr<state::Action>> RuleEngine::possible_moves() {
-    // Générer les actions autorisées pour le joueur courant.
-    return {};
+std::vector<std::shared_ptr<state::Action>> RuleEngine::possible_moves(
+    state::GameState& game_state) {
+    std::vector<std::shared_ptr<state::Action>> actions;
+
+    state::Player& current_player = game_state.get_current_player();
+    state::PlayablePawn* pawns[] = {
+        &current_player.get_warrior(),
+        &current_player.get_sorcerer()
+    };
+
+    for (state::PlayablePawn* pawn : pawns) {
+        if (pawn->get_place() != state::Place::Arena) {
+            continue;
+        }
+
+        const state::Position origin = pawn->get_position();
+        for (const state::Position& destination : origin.neighbors()) {
+            if (can_move(*pawn, destination, game_state)) {
+                actions.push_back(
+                    std::make_shared<state::MoveAction>(pawn, destination));
+            }
+        }
+
+        for (state::Player& player : game_state.get_players()) {
+            if (player.getColor() == current_player.getColor()) {
+                continue;
+            }
+
+            state::PlayablePawn* targets[] = {
+                &player.get_warrior(),
+                &player.get_sorcerer()
+            };
+            for (state::PlayablePawn* target : targets) {
+                if (target->get_place() == state::Place::Arena
+                    && can_attack(*pawn, *target, game_state)) {
+                    actions.push_back(
+                        std::make_shared<state::AttackAction>(pawn, target));
+                }
+            }
+        }
+    }
+
+    return actions;
 }
 
 bool RuleEngine::can_move(state::PlayablePawn& pawn,
-                          state::Position& destination,
-                          state::GameState game_state) {
-    // Vérifier distance, destination et nombre de déplacements.
-    return false;
+                          const state::Position& destination,
+                          state::GameState& game_state) {
+    if (pawn.get_place() != state::Place::Arena
+        || !pawn.get_position().is_adjacent_to(destination)
+        || !destination.is_in_radius(5)) {
+        return false;
+    }
+
+    return game_state.get_board().get_tile_from(destination) != nullptr;
 }
 
 bool RuleEngine::can_attack(state::PlayablePawn& attacker,
                             state::PlayablePawn& target,
                             state::GameState& game_state) {
-    // Vérifier joueur actif, adjacence et état des pions.
-    return false;
+    if (attacker.get_place() != state::Place::Arena
+        || target.get_place() != state::Place::Arena) {
+        return false;
+    }
+    if (&attacker == &target
+        || attacker.get_color() == target.get_color()) {
+        return false;
+    }
+    return attacker.get_position().is_adjacent_to(target.get_position());
 }
 
 bool RuleEngine::can_cast(state::Sorcerer& caster,
