@@ -55,7 +55,7 @@ namespace state
         }
 
         //Déterminons le nombre de dés à lancer
-        int nb_dice = spell->number_of_dice;
+        int nb_dice = spell->get_nb_of_dice(state);
 
         //Lancer de dés
         AttackDice dice;
