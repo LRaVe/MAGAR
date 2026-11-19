@@ -1,6 +1,9 @@
 #include "GameEngine/GameEngine.h"
 #include "state/GameState.h"
 #include "state/Action.h"
+#include "GameEngine/RuleEngine.h"
+#include "GameEngine/ActionExecutor.h"
+#include "GameEngine/TurnManager.h"
 
 
 namespace GameEngine {
@@ -18,14 +21,20 @@ void GameEngine::start_game() {
 
 void GameEngine::start_turn() {
     // Implementation of starting a turn
+    
 }
 
 void GameEngine::submit_action(state::Action& action) {
     // Implementation of submitting an action
+    if(!rules.is_valid(state,action)){
+        return;
+    }
+
+    executor.execute(action, state);
 }
 
 void GameEngine::end_turn() {
-    // Implementation of ending a turn
+    turn_manager.next_turn(state);
 }
 
 bool GameEngine::is_game_over() {

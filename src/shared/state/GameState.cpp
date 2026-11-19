@@ -61,3 +61,12 @@ void GameState::add_player(Color color, Position warrior_position, Position sorc
     players.back().get_warrior().set_place(Place::Camp);
     players.back().get_sorcerer().set_place(Place::Camp);
 }
+
+void GameState::next_turn() {
+    if (players.empty()) {
+        return;
+    }
+    current_Player_index =
+        (current_Player_index + 1) % players.size();
+    ++turn;
+}
