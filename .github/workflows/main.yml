@@ -29,7 +29,7 @@ jobs:
       run: |
         set -x
         sudo apt-get update
-        sudo apt-get install -yy libsfml-dev libboost1.74-all-dev libmicrohttpd-dev libxml2-dev xvfb lcov gcovr
+        sudo apt-get install -yy libsfml-dev libboost1.88-all-dev libmicrohttpd-dev libxml2-dev xvfb lcov gcovr
 
     - name: switch to gcc-12 on linux
       run: |
