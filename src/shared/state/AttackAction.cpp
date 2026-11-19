@@ -16,13 +16,7 @@ AttackAction::~AttackAction() = default;
 
 bool AttackAction::areHexAdjacent(const Position& p1, const Position& p2) // à supprimer potentiellement, si redondante
 {
-    int dq = std::abs(p1.q - p2.q);
-    int dr = std::abs(p1.r - p2.r);
-    int ds = std::abs(p1.s() - p2.s());
-
-    //Distance hexagonale en coordonnés cubiques
-    int distance = (dq + dr + ds) / 2;
-    return distance == 1;
+    return p1.is_adjacent_to(p2);
 }
 
 int AttackAction::countSuccesses(const std::vector<bool>& draw)

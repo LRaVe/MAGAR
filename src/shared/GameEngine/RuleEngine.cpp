@@ -16,7 +16,7 @@ RuleEngine::~RuleEngine() = default;
 bool RuleEngine::is_valid(state::GameState& game_state,
                            state::Action& action) {
     // Identifier le type d'action puis appliquer la règle correspondante.
-    return false;
+    return action.validate(*this, game_state);
 }
 
 std::vector<std::shared_ptr<state::Action>> RuleEngine::possible_moves() {
