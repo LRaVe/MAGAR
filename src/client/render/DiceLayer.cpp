@@ -20,7 +20,7 @@ void DiceLayer::render(sf::RenderWindow& window, state::GameState& state) {
     auto draw = state.get_draw_dice();
     for (int i = 0; i < static_cast<int>(draw.size()); i++) {
         sf::RectangleShape square;
-        square.setPosition({static_cast<float>(-80+60*i),320});
+        square.setPosition({static_cast<float>(-580+60*i),320});
         square.setSize({50,50});
         square.setTexture(&get_texture_from_dice(draw[i]));
         window.draw(square);

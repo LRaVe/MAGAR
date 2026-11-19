@@ -1,4 +1,6 @@
 #include "render/TurnLayer.h"
+
+#include "Transformator.h"
 using namespace render;
 
 #include <iostream>
@@ -32,22 +34,7 @@ void TurnLayer::turn_draw(sf::RenderWindow& window, int turn) const {
 void TurnLayer::current_color_draw(sf::RenderWindow& window, state::Color current_player_color) const {
 
     // Who's turn
-    sf::String player_string;
-    switch (current_player_color)
-    {
-    case state::Color::Red:
-        player_string = sf::String("Red");
-        break;
-    case state::Color::Blue:
-        player_string = sf::String("Blue");
-        break;
-    case state::Color::Green:
-        player_string = sf::String("Green");
-        break;
-    case state::Color::Yellow:
-        player_string = sf::String("Yellow");
-        break;
-    }
+    sf::String player_string = Transformator::to_sf_string(current_player_color);
     sf::Text player_text(player_string,title_font);
     player_text.setFillColor( sf::Color::Black );
     player_text.setCharacterSize( 25 );
