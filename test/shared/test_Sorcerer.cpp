@@ -18,8 +18,15 @@ BOOST_AUTO_TEST_CASE(Sorcerer_compilation_test)
 class TestSpell : public state::Spell {
 public :
     mutable int execution_count=0;
+    mutable bool executed=false;
     void execute(state::GameState& state) const override {
+        (void)state;
         execution_count=execution_count+1;
+        executed=true;
+    }
+
+    int get_nb_of_dice(state::GameState&) override {
+        return 1;
     }
 };
 
@@ -53,3 +60,4 @@ BOOST_AUTO_TEST_CASE(Sorcerer_attack_pawn) {
     BOOST_CHECK_EQUAL(pawn.get_position().q,1);
     BOOST_CHECK_EQUAL(pawn.get_position().r,0);
 }
+

@@ -50,13 +50,12 @@ std::vector<Position> Position::neighbors() const {
     for (int direction = 0; direction < 6; ++direction) {
         result.push_back(neighbor(direction));
     }
-    return result;
-}
+    return result; }
 
 std::vector<Position> Position::ring(int radius) const {
     std::vector<Position> result;
     if (radius == 0) {
-        result.push_back(*this);
+        result.push_back(*this); 
         return result;
     }
     if (radius < 0) {

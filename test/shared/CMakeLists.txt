@@ -7,4 +7,5 @@ add_custom_test(Board)
 add_custom_test(Player)
 add_custom_test(Sorcerer)
 add_custom_test(Warrior)
+add_custom_test(Position)
 # vim: set sw=2 sts=2 et:
