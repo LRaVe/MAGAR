@@ -2,6 +2,7 @@
 #include "state/GameState.h"
 #include "state/PlayablePawn.h"
 #include "state/AttackDice.h"
+#include "GameEngine/RuleEngine.h"
 #include <cmath>
 #include <iostream>
 
@@ -35,6 +36,10 @@ int AttackAction::countSuccesses(const std::vector<bool>& draw)
         }
     }
     return count;
+}
+
+bool AttackAction::validate(GameEngine::RuleEngine& rules, GameState& state){
+    return false; // à implémenter plus tard, pour l'instant on ne valide pas les actions
 }
 
 void AttackAction::execute(GameState&){

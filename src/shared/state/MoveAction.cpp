@@ -1,5 +1,6 @@
 #include"state/MoveAction.h"
 #include "state/Pawn.h"
+#include "GameEngine/RuleEngine.h"
 
 using namespace state;
 
@@ -13,4 +14,8 @@ void MoveAction::execute(GameState& state) {
     if (pawn) {
         pawn->set_position(destination);
     }
+}
+
+bool MoveAction::validate(GameEngine::RuleEngine& rules, GameState& state){
+    return false; // à implémenter plus tard, pour l'instant on ne valide pas les actions
 }

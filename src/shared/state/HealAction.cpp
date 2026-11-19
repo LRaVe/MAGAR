@@ -6,6 +6,9 @@
 #include "state/PlayablePawn.h"
 #include "state/Warrior.h"
 #include "state/Sorcerer.h"
+#include "state/GameState.h"
+#include "state/Heal.h"
+#include "GameEngine/RuleEngine.h"
 #include <algorithm>
 
 namespace state
@@ -49,5 +52,9 @@ namespace state
         {
             target->set_place(Camp);
         }
+    }
+
+    bool HealAction::validate(GameEngine::RuleEngine& rules, GameState& state){
+        return false; // à implémenter plus tard, pour l'instant on ne valide pas les actions
     }
 }

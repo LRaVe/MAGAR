@@ -10,6 +10,7 @@
 #include "state/GameState.h"
 #include "state/Board.h"
 #include "state/AttackDice.h"
+#include "GameEngine/RuleEngine.h"
 #include <memory>
 
 namespace state
@@ -69,5 +70,10 @@ namespace state
             spell->execute(state);
         }
     }
+
+    bool CastAction::validate(GameEngine::RuleEngine& rules, GameState& state){
+    return false; // à implémenter plus tard, pour l'instant on ne valide pas les actions
 }
+}
+
 
