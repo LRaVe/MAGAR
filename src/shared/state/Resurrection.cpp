@@ -6,6 +6,8 @@ using namespace state;
 
 Resurrection::Resurrection(PlayablePawn* target) : Spell(), target(target) {}
 
+Resurrection::~Resurrection() = default;
+
 int Resurrection::get_nb_of_dice(GameState& state){return 4;}
 
 void Resurrection::execute(GameState& state) const {

@@ -7,12 +7,13 @@ using namespace state;
 
 Telekinesis::Telekinesis(const Position& destination) : Spell(), destination(destination) {}
 
+Telekinesis::~Telekinesis() = default;
+
 int Telekinesis::get_nb_of_dice(GameState& state)
 {
     Position stone_pos = state.get_stone().get_position();
 
     bool stone_on_player = false;
-
     for (auto& player : state.get_players())
     {
         Position w_pos = player.get_warrior().get_position();
@@ -54,11 +55,11 @@ std::vector<Position> Telekinesis::ListOfMoves(GameState& state) const
     {
         Position neighbor(stone_pos.q + dir.first, stone_pos.r + dir.second);
 
-        int distance_from_center = std::max({
-            std::abs(neighbor.q),
-            std::abs(neighbor.r),
-            std::abs(neighbor.q + neighbor.r)
-        });
+        const int distance_q = std::abs(neighbor.q);
+        const int distance_r = std::abs(neighbor.r);
+        const int distance_s = std::abs(neighbor.q + neighbor.r);
+        const int distance_from_center =
+            std::max(distance_q, std::max(distance_r, distance_s));
 
         if (distance_from_center <= 5)
         {

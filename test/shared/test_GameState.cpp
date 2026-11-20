@@ -121,3 +121,16 @@ BOOST_AUTO_TEST_CASE(GameState_dice_draw)
     auto dice_draw=game_state.get_draw_dice();
     BOOST_CHECK_EQUAL(dice_draw.size(),3);
 }
+
+BOOST_AUTO_TEST_CASE(GameState_next_turn)
+{
+    state::GameState game_state;
+    int initial_turn=game_state.get_turn();
+    game_state.next_turn();
+    BOOST_CHECK_EQUAL(game_state.get_turn(),initial_turn+1);
+    BOOST_CHECK_EQUAL(&game_state.get_current_player(),&game_state.get_players()[1]);
+    
+    state::GameState game_state2;
+    game_state2.get_players().clear();
+    BOOST_CHECK_NO_THROW(game_state2.next_turn());
+}

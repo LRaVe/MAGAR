@@ -8,4 +8,7 @@ add_custom_test(Player)
 add_custom_test(Sorcerer)
 add_custom_test(Warrior)
 add_custom_test(Position)
+add_custom_test(Heal)
+add_custom_test(Resurrection)
+add_custom_test(Telekinesis)
 # vim: set sw=2 sts=2 et:

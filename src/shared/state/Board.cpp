@@ -73,8 +73,7 @@ vector<Position> get_circle_tile_list(int radius) {
             result.push_back(position);
         }
     }
-    return result; 
-}
+    return result; }
 
 vector<Position> get_circle_tile_list(int radius, int center) {
     vector<Position> result = get_circle_tile_list(radius);
@@ -97,5 +96,4 @@ std::vector<std::shared_ptr<Tile>> Board::get_tiles() const {
     for (const auto& row : board)
         for (const auto& tile : row)
             if (tile) result.push_back(tile);
-    return result;
-}
+    return result; }
