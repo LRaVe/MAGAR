@@ -73,14 +73,21 @@ const sf::Texture& BoardLayer::get_texture_from_tile(const std::shared_ptr<state
 
 
 void BoardLayer::draw_all_camp(sf::RenderWindow& window) {
-    draw_camp(window,{-270,-300},-45);
-    draw_camp(window,{270,-300},45);
-    draw_camp(window,{-270,300},225);
-    draw_camp(window,{270,300},-225);
+    draw_camp(window,{-270,-300},-45, sf::Color::Red);
+    draw_camp(window,{270,-300},45, sf::Color::Blue);
+    draw_camp(window,{-270,300},225, sf::Color::Green);
+    draw_camp(window,{270,300},-225, sf::Color::Yellow);
 }
 
-void BoardLayer::draw_camp(sf::RenderWindow& window, sf::Vector2f position,float rotation)
-{
+void BoardLayer::draw_camp(sf::RenderWindow& window, sf::Vector2f position,float rotation, sf::Color color) {
+    sf::RectangleShape background;
+    background.setSize({150, 150});
+    background.setOrigin({75, 75});
+    background.setPosition(position);
+    background.setRotation(rotation);
+    background.setFillColor(color);
+    window.draw(background);
+
     sf::RectangleShape camp;
     camp.setSize({150,150});
     camp.setOrigin({75,75});
@@ -91,14 +98,51 @@ void BoardLayer::draw_camp(sf::RenderWindow& window, sf::Vector2f position,float
 }
 
 void BoardLayer::draw_all_hospital(sf::RenderWindow& window) {
-    sf::RectangleShape hospitalze;
-    hospitalze.setSize({150,150});
+    draw_hospital(window,{-375,-100},180, sf::Color::Red);
+    draw_hospital(window,{375,-100},180, sf::Color::Blue);
+    draw_hospital(window,{-375,100},0, sf::Color::Green);
+    draw_hospital(window,{375,100},0, sf::Color::Yellow);
+}
+
+void BoardLayer::draw_hospital(sf::RenderWindow& window, sf::Vector2f position, float rotation, sf::Color color) {
+    sf::RectangleShape background;
+    background.setSize({100, 100});
+    background.setOrigin({50, 50});
+    background.setPosition(position);
+    background.setRotation(rotation);
+    background.setFillColor(color);
+    window.draw(background);
+
+    sf::RectangleShape hospital;
+    hospital.setSize({100,100});
+    hospital.setOrigin({50,50});
+    hospital.setPosition(position);
+    hospital.setTexture(&hospital_texture);
+    hospital.setRotation(rotation);
+    window.draw(hospital);
 }
 
 void BoardLayer::draw_all_cemetery(sf::RenderWindow& window) {
-    sf::CircleShape circle;
-    circle.setPosition({SIZE_HEXA, -SIZE_HEXA});
-    circle.setFillColor(sf::Color::Black);
-    circle.setRadius(10);
-    window.draw(circle);
+    draw_cemetery(window,{-120,-350},90, sf::Color::Red);
+    draw_cemetery(window,{120,-350},-90, sf::Color::Blue);
+    draw_cemetery(window,{-120,350},90, sf::Color::Green);
+    draw_cemetery(window,{120,350},-90, sf::Color::Yellow);
+}
+
+void BoardLayer::draw_cemetery(sf::RenderWindow& window, sf::Vector2f position, float rotation, sf::Color color) {
+    sf::RectangleShape background;
+    background.setSize({100, 100});
+    background.setOrigin({50, 50});
+    background.setPosition(position);
+    background.setRotation(rotation);
+    background.setFillColor(color);
+    window.draw(background);
+
+    sf::RectangleShape cemetery;
+    cemetery.setSize({100,100});
+    cemetery.setOrigin({50,50});
+    cemetery.setPosition(position);
+    cemetery.setTexture(&cemetery_texture);
+    cemetery.setRotation(rotation);
+    window.draw(cemetery);
 }
