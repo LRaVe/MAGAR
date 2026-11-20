@@ -21,7 +21,7 @@ void GameEngine::start_game() {
 
 void GameEngine::start_turn() {
     // Implementation of starting a turn
-    
+      
 }
 
 void GameEngine::submit_action(state::Action& action) {

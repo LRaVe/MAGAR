@@ -24,9 +24,11 @@ bool RuleEngine::is_valid(state::GameState& game_state,
     return action.validate(*this, game_state);
 }
 
-std::vector<std::shared_ptr<state::Action>> RuleEngine::possible_moves(
+std::vector<std::shared_ptr<state::Action>> RuleEngine::possible_actions(
     state::GameState& game_state) {
     std::vector<std::shared_ptr<state::Action>> actions;
+
+    auto draw = game_state.get_draw_dice();
 
     state::Player& current_player = game_state.get_current_player();
     state::PlayablePawn* pawns[] = {

@@ -47,11 +47,11 @@ std::vector<Dice> GameState::get_draw_dice () {
     return dice_Draw.get_draw();
 }
 
-Stone GameState::get_stone() {
+Stone& GameState::get_stone() {
     return stone;
 }
 
-Dragon GameState::get_dragon() {
+Dragon& GameState::get_dragon() {
     return dragon;
 }
 
