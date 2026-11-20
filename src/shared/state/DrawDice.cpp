@@ -1,5 +1,6 @@
 #include "state/DrawDice.h"
 #include <random>
+#include <algorithm>
 
 namespace state {
 
@@ -29,6 +30,21 @@ namespace state {
             int random_index = distribution(generator);
             draw.push_back(faces[random_index]);
         }
+    }
+
+    // Juste pour vérifier sans modifier
+    bool DrawDice::has_dice(Dice face) const {
+        return std::find(draw.begin(), draw.end(), face) != draw.end();
+    }
+
+    // Pour consommer le dé
+    bool DrawDice::consume_dice(Dice face) {
+        auto it = std::find(draw.begin(), draw.end(), face);
+        if (it != draw.end()) {
+            draw.erase(it);
+            return true;
+        }
+        return false;
     }
 
     std::vector<Dice> DrawDice::get_draw() const { //getter
