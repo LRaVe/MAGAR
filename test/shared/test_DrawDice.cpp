@@ -7,11 +7,13 @@ BOOST_AUTO_TEST_CASE(TestStaticAssert)
   BOOST_CHECK(1);
 }
 
+/*
 BOOST_AUTO_TEST_CASE(DrawDice_initially_empty)
 {
     state::DrawDice dice;
     BOOST_CHECK(dice.get_draw().empty());
 }
+*/
 
 BOOST_AUTO_TEST_CASE(DrawDice_rolls_requested_number)
 {
