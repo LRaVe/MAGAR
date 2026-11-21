@@ -15,7 +15,7 @@ jobs:
   # This workflow contains a single job called "build"
   build:
     # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -29,7 +29,7 @@ jobs:
       run: |
         set -x
         sudo apt-get update
-        sudo apt-get install -yy libsfml-dev libboost1.88-all-dev libmicrohttpd-dev libxml2-dev xvfb lcov gcovr
+        sudo apt-get install -yy libsfml-dev libboost1.74-all-dev libmicrohttpd-dev libxml2-dev xvfb lcov gcovr
 
     - name: switch to gcc-12 on linux
       run: |

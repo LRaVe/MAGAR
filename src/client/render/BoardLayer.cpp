@@ -1,15 +1,13 @@
 #include  "render/BoardLayer.h"
-
-#include <complex>
-
-#include "state/CenterTile.h"
-#include "state/ClassicTile.h"
-#include "state/NestTile.h"
 using namespace render;
 
 #include <iostream>
+#include <cmath>
 
 #include "state/GameState.h"
+#include "state/CenterTile.h"
+#include "state/ClassicTile.h"
+#include "state/NestTile.h"
 
 constexpr float SIZE_HEXA = 35.f;
 

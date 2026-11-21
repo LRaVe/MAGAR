@@ -2,6 +2,7 @@
 
 #include "BoardLayer.h"
 #include "DiceLayer.h"
+#include "PawnLayer.h"
 #include "TurnLayer.h"
 using namespace render;
 #include <state/GameState.h>
@@ -10,6 +11,7 @@ StateRender::StateRender (sf::RenderWindow& window, state::GameState& GameState)
     layers.push_back(std::make_shared<TurnLayer>());
     layers.push_back(std::make_shared<DiceLayer>());
     layers.push_back(std::make_shared<BoardLayer>());
+    layers.push_back(std::make_shared<PawnLayer>());
 }
 
 StateRender::~StateRender () = default;

@@ -17,7 +17,7 @@ DiceLayer::DiceLayer() {
 DiceLayer::~DiceLayer () = default;
 
 void DiceLayer::render(sf::RenderWindow& window, state::GameState& state) {
-    auto draw = state.get_draw_dice();
+    auto draw = state.get_draw_dice().get_draw();
     for (int i = 0; i < static_cast<int>(draw.size()); i++) {
         sf::RectangleShape square;
         square.setPosition({static_cast<float>(-580+60*i),320});
