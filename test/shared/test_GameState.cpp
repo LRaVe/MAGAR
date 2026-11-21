@@ -118,7 +118,7 @@ BOOST_AUTO_TEST_CASE(GameState_destruction)
 BOOST_AUTO_TEST_CASE(GameState_dice_draw)
 {
     state::GameState game_state;
-    auto dice_draw=game_state.get_draw_dice();
+    auto dice_draw=game_state.get_draw_dice().get_draw();
     BOOST_CHECK_EQUAL(dice_draw.size(),3);
 }
 
