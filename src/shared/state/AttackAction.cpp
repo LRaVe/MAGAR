@@ -73,21 +73,23 @@ void AttackAction::execute(GameState&){
     std::cout << "[Combat] Cible (" << targetAttackVal<<"des) ->"<<targetSuccesses<<"succes."<<std::endl;
 
     //résolution du combat
+    resolve_combat(attackerSuccesses, targetSuccesses);
+}
 
-    if (attackerSuccesses>targetSuccesses)
+void AttackAction::resolve_combat(int attacker_successes, int target_successes)
+{
+    if (attacker_successes > target_successes)
     {
-        std::cout << "[Combat] l'Attaquant gagne, la cible est envoyée à l'hopital"<<std::endl;
+        std::cout << "[Combat] l'Attaquant gagne, la cible est envoyée à l'hopital" << std::endl;
         target->set_place(Hospital);
-
     }
-    else if (targetSuccesses>attackerSuccesses)
+    else if (target_successes > attacker_successes)
     {
-        std::cout << "[Combat] la Cible gagne, l'attaquant est envoyé à l'hopital"<<std::endl;
+        std::cout << "[Combat] la Cible gagne, l'attaquant est envoyé à l'hopital" << std::endl;
         attacker->set_place(Hospital);
     }
     else
     {
-        //Egalité : rien ne se passe
-        std::cout << "[Combat] Egalité ! ("<<attackerSuccesses<<"-"<<targetSuccesses<<"). Rien ne se passe"<<std::endl;
+        std::cout << "[Combat] Egalité ! (" << attacker_successes << "-" << target_successes << "). Rien ne se passe" << std::endl;
     }
 }

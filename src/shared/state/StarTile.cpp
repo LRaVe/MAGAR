@@ -16,3 +16,8 @@ StarTile::~StarTile() {}
 void StarTile::effect() {
     cout << "Star tile effect" << endl;
 }
+
+bool StarTile::is_star_tile() const
+{
+    return true;
+}

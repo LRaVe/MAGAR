@@ -11,4 +11,6 @@ add_custom_test(Position)
 add_custom_test(Heal)
 add_custom_test(Resurrection)
 add_custom_test(Telekinesis)
+add_custom_test(AttackAction)
+add_custom_test(CastAction)
 # vim: set sw=2 sts=2 et:

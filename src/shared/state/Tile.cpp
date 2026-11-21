@@ -11,6 +11,11 @@ Tile::~Tile() = default;
 
 void Tile::effect() {}
 
+bool Tile::is_star_tile() const
+{
+    return false;
+}
+
 Position Tile::get_position() const {
     return position;
 }

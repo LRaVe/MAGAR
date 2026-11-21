@@ -6,7 +6,6 @@
 #include "state/PlayablePawn.h"
 #include "state/Sorcerer.h"
 #include "state/Tile.h"
-#include "state/StarTile.h"
 #include "state/GameState.h"
 #include "state/Board.h"
 #include "state/AttackDice.h"
@@ -30,7 +29,7 @@ namespace state
 
         std::shared_ptr<Tile> current_tile = state.get_board().get_tile_from(caster_pos);
 
-        return dynamic_cast<StarTile*>(current_tile.get()) != nullptr;
+        return current_tile && current_tile->is_star_tile();
 
     }
 
@@ -63,12 +62,23 @@ namespace state
         std::vector<bool> result = dice.get_draw();
 
         //On ne souhaite obtenir que des succès
-        bool is_total_success = (countSuccesses(result) == nb_dice);
+        resolve_draw(result, state);
+    }
 
-        if (is_total_success)
-        {
-            spell->execute(state);
+    bool CastAction::resolve_draw(const std::vector<bool>& draw, GameState& state)
+    {
+        if (!spell) {
+            return false;
         }
+
+        const int nb_dice = spell->get_nb_of_dice(state);
+
+        if (countSuccesses(draw) != nb_dice) {
+            return false;
+        }
+
+        spell->execute(state);
+        return true;
     }
 
     bool CastAction::validate(GameEngine::RuleEngine& rules, GameState& state){
