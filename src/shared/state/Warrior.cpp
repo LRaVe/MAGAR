@@ -12,3 +12,7 @@ void Warrior::attack_pawn(PlayablePawn* pawn, GameState& state) {
     AttackAction attack_action(this, pawn);
     attack_action.execute(state);
 }
+
+std::optional<Dice> Warrior::class_dice() const {
+    return Dice::WARRIOR;
+}

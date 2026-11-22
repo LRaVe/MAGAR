@@ -23,3 +23,19 @@ BOOST_AUTO_TEST_CASE(Warrior_attack_pawn_test)
     BOOST_CHECK_EQUAL(pawn.get_position().q,1);
     BOOST_CHECK_EQUAL(pawn.get_position().r,0);
 }
+
+BOOST_AUTO_TEST_CASE(Warrior_class_dice_test)
+{
+    state::Warrior warrior(state::Color::Red,state::Position(0,0));
+    BOOST_CHECK(warrior.class_dice().has_value());
+    BOOST_CHECK(warrior.class_dice()==state::Dice::WARRIOR);
+}
+
+BOOST_AUTO_TEST_CASE(Warrior_unique_ptr_destructor_test)
+{
+    std::unique_ptr<state::Warrior> warrior=std::make_unique<state::Warrior>(state::Color::Red,state::Position(0,0));
+
+    BOOST_CHECK(warrior);
+    warrior.reset();
+    BOOST_CHECK(!warrior);
+}

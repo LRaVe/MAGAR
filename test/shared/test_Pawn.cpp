@@ -47,3 +47,18 @@ BOOST_AUTO_TEST_CASE(Pawn_distance_same_position)
     state::Pawn pawn2(state::Position(1,2));
     BOOST_CHECK_EQUAL(pawn1.get_distance_from(pawn2),0);
 }
+
+BOOST_AUTO_TEST_CASE(Pawn_as_playable_test)
+{
+    state::Pawn pawn(state::Position(0,0));
+    BOOST_CHECK(pawn.as_playable()==nullptr);
+}
+
+BOOST_AUTO_TEST_CASE(Pawn_unique_ptr_destructor_test)
+{
+    std::unique_ptr<state::Pawn> pawn=std::make_unique<state::Pawn>(state::Position(0,0));
+
+    BOOST_CHECK(pawn);
+    pawn.reset();
+    BOOST_CHECK(!pawn);
+}

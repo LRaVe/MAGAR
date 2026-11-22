@@ -824,6 +824,7 @@ struct stdlib_includes
     int stdlib;
     int vector;
     int memory;
+    int optional;
     int limits;
     int map;
     int unordered_map;
@@ -888,6 +889,7 @@ void print_include_stdlib(struct stdlib_includes *si, char *name)
         INCLUDE_STD_HEADER(memory, "std::unique_ptr", "memory")
         INCLUDE_STD_HEADER(memory, "std::shared_ptr", "memory")
         INCLUDE_STD_HEADER(memory, "std::weak_ptr", "memory")
+        INCLUDE_STD_HEADER(optional, "std::optional", "optional")
 
         /* Randomness */
         INCLUDE_STD_HEADER(random, "std::mt19937", "random")

@@ -1,8 +1,6 @@
 #include "state/MoveAction.h"
 #include "state/Pawn.h"
 #include "state/PlayablePawn.h"
-#include "state/Warrior.h"
-#include "state/Sorcerer.h"
 #include "state/GameState.h"
 #include "state/DrawDice.h"
 #include "GameEngine/RuleEngine.h"
@@ -21,11 +19,13 @@ static bool areHexAdjacent(const Position& p1, const Position& p2)
     return p1.is_adjacent_to(p2);
 }
 
-static Dice get_required_die_for(Pawn* pawn)
-{
-    if (dynamic_cast<Warrior*>(pawn) != nullptr) return WARRIOR;
-    if (dynamic_cast<Sorcerer*>(pawn) != nullptr) return SORCERER;
-    return TRISKELL; // ou une valeur par défaut si on utilise pas MoveAction pour bouger le dragon
+static Dice get_required_die_for(Pawn* pawn) {
+    if (auto* playable = pawn->as_playable()) {
+        if (auto die = playable->class_dice()) {
+            return *die;
+        }
+    }
+    return TRISKELL; // pions non jouables (dragon) ou pion générique
 }
 
 bool MoveAction::can_apply(GameState& state) const
@@ -35,8 +35,7 @@ bool MoveAction::can_apply(GameState& state) const
         return false;
     }
 
-
-    auto* playable = dynamic_cast<PlayablePawn*>(pawn);
+    auto* playable = pawn->as_playable();
     if (playable && playable->get_place() != Place::Arena) {
         return false;
     }

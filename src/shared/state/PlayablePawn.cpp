@@ -1,4 +1,6 @@
 #include "state/PlayablePawn.h"
+#include <optional>
+#include "../../src/shared/state/Dice.h"
 using namespace state;
 
 
@@ -32,4 +34,12 @@ int PlayablePawn::get_nb_moves() {
 
 Color PlayablePawn::get_color() const {
     return color;
+}
+
+std::optional<Dice> PlayablePawn::class_dice() const {
+    return std::nullopt;
+}
+
+PlayablePawn* PlayablePawn::as_playable() {
+    return this;
 }

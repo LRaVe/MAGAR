@@ -61,3 +61,18 @@ BOOST_AUTO_TEST_CASE(Sorcerer_attack_pawn) {
     BOOST_CHECK_EQUAL(pawn.get_position().r,0);
 }
 
+BOOST_AUTO_TEST_CASE(Sorcerer_class_dice_test)
+{
+    state::Sorcerer sorcerer(state::Color::Red,state::Position(0,0));
+    BOOST_CHECK(sorcerer.class_dice().has_value());
+    BOOST_CHECK(sorcerer.class_dice()==state::Dice::SORCERER);
+}
+
+BOOST_AUTO_TEST_CASE(Sorcerer_unique_ptr_destructor_test)
+{
+    std::unique_ptr<state::Sorcerer> sorcerer=std::make_unique<state::Sorcerer>(state::Color::Red,state::Position(0,0));
+
+    BOOST_CHECK(sorcerer);
+    sorcerer.reset();
+    BOOST_CHECK(!sorcerer);
+}

@@ -30,3 +30,7 @@ void Sorcerer::attack_pawn(PlayablePawn* pawn, GameState& state) {
 void Sorcerer::reset_spell_usage() {
     can_spell=true;
 }
+
+std::optional<Dice> Sorcerer::class_dice() const {
+    return Dice::SORCERER;
+}

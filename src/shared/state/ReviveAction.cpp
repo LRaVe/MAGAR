@@ -4,8 +4,6 @@
 
 #include "state/ReviveAction.h"
 #include "state/PlayablePawn.h"
-#include "state/Warrior.h"
-#include "state/Sorcerer.h"
 #include "state/GameState.h"
 #include "GameEngine/RuleEngine.h"
 #include <algorithm>
@@ -18,38 +16,24 @@ namespace state
 
     ReviveAction::~ReviveAction() = default;
 
-    bool ReviveAction::can_apply() const
-    {
-        // Sécurité au cas où target serait null
-        if (!target) {
+    bool ReviveAction::can_apply() const {
+        if (!target || target->get_place() != Place::Cimetery) {
             return false;
         }
 
-        // On vérifie que le pion est bien à l'hôpital
-        if (target->get_place() != Place::Hospital) {
+        const auto kind = target->class_dice();
+        if (!kind) {
             return false;
         }
 
-        // auto pour éviter le warning de clang tidy sur le retour (à la base int, peut être mis en long)
-        auto triskell_count = std::count(draw.begin(), draw.end(), TRISKELL);
-        auto warrior_count  = std::count(draw.begin(), draw.end(), WARRIOR);
-        auto sorcerer_count = std::count(draw.begin(), draw.end(), SORCERER);
-
-        if (dynamic_cast<const Warrior*>(target) != nullptr) {
-            return warrior_count == 3;
-        }
-        if (dynamic_cast<const Sorcerer*>(target) != nullptr) {
-            return sorcerer_count == 3;
-        }
-
-        return false;
+        return std::count(draw.begin(), draw.end(), *kind) == 3;
     }
 
     void ReviveAction::execute(GameState& state)
     {
-        if (can_apply() && target != nullptr)
+        if (can_apply())
         {
-            target->set_place(Arena);
+            target->set_place(Camp);
         }
     }
 

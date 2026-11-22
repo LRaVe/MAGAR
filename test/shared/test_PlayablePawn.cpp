@@ -1,5 +1,7 @@
 #include <boost/test/unit_test.hpp>
 #include "../../src/shared/state/PlayablePawn.h"
+#include "../../src/shared/state/Warrior.h"
+#include "../../src/shared/state/Sorcerer.h"
 
 BOOST_AUTO_TEST_CASE(TestStaticAssert)
 {
@@ -42,4 +44,28 @@ BOOST_AUTO_TEST_CASE(PlayablePawn_set_place)
     BOOST_CHECK_EQUAL(playable_pawn.get_place(),state::Place::Camp);
     playable_pawn.set_place(state::Place::Hospital);
     BOOST_CHECK_EQUAL(playable_pawn.get_place(),state::Place::Hospital);
+}
+
+BOOST_AUTO_TEST_CASE(PlayablePawn_as_playable_test)
+{
+    state::PlayablePawn playable_pawn(state::Color::Red,state::Position(0,0));
+    BOOST_CHECK(playable_pawn.as_playable()==&playable_pawn);
+}
+
+BOOST_AUTO_TEST_CASE(PlayablePawn_class_dice_test)
+{
+    state::PlayablePawn playable_pawn(state::Color::Red,state::Position(0,0));
+    state::Warrior warrior(state::Color::Red,state::Position(0,0));
+    state::Sorcerer sorcerer(state::Color::Red,state::Position(0,0));
+    BOOST_CHECK(!playable_pawn.class_dice().has_value());
+    BOOST_CHECK(warrior.class_dice()==state::Dice::WARRIOR);
+    BOOST_CHECK(sorcerer.class_dice()==state::Dice::SORCERER);
+}
+
+BOOST_AUTO_TEST_CASE(PlayablePawn_unique_ptr_destructor_test)
+{
+    std::unique_ptr<state::PlayablePawn> playable_pawn=std::make_unique<state::PlayablePawn>(state::Color::Red,state::Position(0,0));
+    BOOST_CHECK(playable_pawn);
+    playable_pawn.reset();
+    BOOST_CHECK(!playable_pawn);
 }

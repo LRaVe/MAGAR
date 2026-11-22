@@ -20,3 +20,7 @@ int state::Pawn::get_distance_from(const Pawn& pawn) const {
 void state::Pawn::set_position(Position pos) {
     position = pos;
 }
+
+PlayablePawn* Pawn::as_playable() {
+    return nullptr;
+}
