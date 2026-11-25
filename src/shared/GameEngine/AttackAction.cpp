@@ -9,18 +9,56 @@
 namespace GameEngine {
 using namespace state;
 
-AttackAction::AttackAction(PlayablePawn* attacker, PlayablePawn* target) : attacker(attacker), target(target) {
-
+AttackAction::AttackAction(PlayablePawn* attacker, PlayablePawn* target)
+    : attacker(attacker), target(target)
+{
 }
 
 AttackAction::~AttackAction() = default;
 
-bool AttackAction::areHexAdjacent(const Position& p1, const Position& p2) // à supprimer potentiellement, si redondante
+// Vérification de la cible
+bool AttackAction::is_enemy_valid() const
 {
-    return p1.is_adjacent_to(p2);
+    // Les deux pions doivent exister
+    if (!attacker || !target) {
+        return false;
+    }
+
+    // On ne peut pas s'attaquer soi-même
+    if (attacker == target) {
+        return false;
+    }
+
+    // On ne peut pas attaquer un pion de sa propre équipe
+    if (attacker->get_color() == target->get_color()) {
+        return false;
+    }
+
+    return true;
 }
 
-int AttackAction::countSuccesses(const std::vector<bool>& draw)
+// Vérification que les deux combattants sont sur le terrain
+bool AttackAction::are_pawns_in_arena() const
+{
+    if (!attacker || !target) {
+        return false;
+    }
+
+    return (attacker->get_place() == Place::Arena &&
+            target->get_place() == Place::Arena);
+}
+
+// Vérification de la portée (adjacence hexagonale)
+bool AttackAction::is_target_adjacent() const
+{
+    if (!attacker || !target) {
+        return false;
+    }
+
+    return attacker->get_position().is_adjacent_to(target->get_position());
+}
+
+    int AttackAction::countSuccesses(const std::vector<bool>& draw)
 {
     int count = 0;
     for (bool hit : draw)
@@ -33,47 +71,36 @@ int AttackAction::countSuccesses(const std::vector<bool>& draw)
     return count;
 }
 
-bool AttackAction::validate(GameEngine::RuleEngine& rules, GameState& state){
-    return false; // à implémenter plus tard, pour l'instant on ne valide pas les actions
+bool AttackAction::can_apply() const
+{
+    return is_enemy_valid()
+        && are_pawns_in_arena()
+        && is_target_adjacent();
 }
 
-void AttackAction::execute(GameState&){
-    //verification préliminaires : l'un des deux est invalide ou le pion s'attaque lui même
-    if (!attacker || !target)
-    {
-        std::cerr << "AttackAction Erreur : Attaquant ou cible invalide." << std::endl;
-        return;
-    }
-    if (attacker == target)
-    {
-        std::cerr << "AttackAction Erreur : un pion ne peut pas s'attaquer lui même" << std::endl;
+void AttackAction::execute(GameState&)
+{
+    // Combat seulement si can_apply est valide
+    if (!can_apply()) {
+        std::cerr << "AttackAction Erreur : Attaque illégale !" << std::endl;
         return;
     }
 
-    Position posAttacker = attacker->get_position();
-    Position posTarget = target->get_position();
-
-    if (!areHexAdjacent(posAttacker,posTarget))
-    {
-        std::cout << "AttackAction Erreur : la cible n'est pas sur une case voisine" << std::endl;
-        return;
-    }
-
-    //gestion du combat
+    // Gestion du combat
     AttackDice dice;
 
-    int attackerAttackVal = attacker -> get_attack(); //valeur entre 0 et 4
+    int attackerAttackVal = attacker->get_attack();
     dice.roll(attackerAttackVal);
     int attackerSuccesses = countSuccesses(dice.get_draw());
 
-    int targetAttackVal = target -> get_attack();
+    int targetAttackVal = target->get_attack();
     dice.roll(targetAttackVal);
     int targetSuccesses = countSuccesses(dice.get_draw());
 
-    std::cout << "[Combat] Attaquant (" << attackerAttackVal<<"des) ->"<<attackerSuccesses<<"succes."<<std::endl;
-    std::cout << "[Combat] Cible (" << targetAttackVal<<"des) ->"<<targetSuccesses<<"succes."<<std::endl;
+    std::cout << "[Combat] Attaquant (" << attackerAttackVal << " dés) -> " << attackerSuccesses << " succès." << std::endl;
+    std::cout << "[Combat] Cible (" << targetAttackVal << " dés) -> " << targetSuccesses << " succès." << std::endl;
 
-    //résolution du combat
+    // Résolution du combat
     resolve_combat(attackerSuccesses, targetSuccesses);
 }
 
@@ -81,18 +108,22 @@ void AttackAction::resolve_combat(int attacker_successes, int target_successes)
 {
     if (attacker_successes > target_successes)
     {
-        std::cout << "[Combat] l'Attaquant gagne, la cible est envoyée à l'hopital" << std::endl;
+        std::cout << "[Combat] L'Attaquant gagne, la cible est envoyée à l'hôpital." << std::endl;
         target->set_place(Hospital);
     }
     else if (target_successes > attacker_successes)
     {
-        std::cout << "[Combat] la Cible gagne, l'attaquant est envoyé à l'hopital" << std::endl;
+        std::cout << "[Combat] La Cible gagne, l'attaquant est envoyé à l'hôpital." << std::endl;
         attacker->set_place(Hospital);
     }
     else
     {
-        std::cout << "[Combat] Egalité ! (" << attacker_successes << "-" << target_successes << "). Rien ne se passe" << std::endl;
+        std::cout << "[Combat] Égalité ! (" << attacker_successes << "-" << target_successes << "). Rien ne se passe." << std::endl;
     }
+}
+
+bool AttackAction::validate(GameEngine::RuleEngine& rules, GameState& state) {
+    return can_apply();
 }
 
 }

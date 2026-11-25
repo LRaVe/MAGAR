@@ -19,17 +19,17 @@ BOOST_AUTO_TEST_CASE(AttackAction_compilation_test)
     BOOST_CHECK(true);
 }
 
-BOOST_AUTO_TEST_CASE(AttackAction_areHexAdjacent_test)
-{
-    state::Position pos1(0,0);
-    state::Position pos2(1,0);
-    state::Position pos3(2,0);
-    state::PlayablePawn attacker(state::Color::Red,pos1);
-    state::PlayablePawn target(state::Color::Blue,pos2);
-    GameEngine::AttackAction attack_action(&attacker,&target);
-    BOOST_CHECK(attack_action.areHexAdjacent(pos1,pos2));
-    BOOST_CHECK(!attack_action.areHexAdjacent(pos1,pos3));
-}
+//BOOST_AUTO_TEST_CASE(AttackAction_areHexAdjacent_test)
+//{
+ //   state::Position pos1(0,0);
+   // state::Position pos2(1,0);
+    //state::Position pos3(2,0);
+    //state::PlayablePawn attacker(state::Color::Red,pos1);
+    //state::PlayablePawn target(state::Color::Blue,pos2);
+    //GameEngine::AttackAction attack_action(&attacker,&target);
+    //BOOST_CHECK(attack_action.areHexAdjacent(pos1,pos2));
+    //BOOST_CHECK(!attack_action.areHexAdjacent(pos1,pos3));
+//}
 
 BOOST_AUTO_TEST_CASE(AttackAction_count_successes_test)
 {
