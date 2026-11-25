@@ -5,7 +5,8 @@
 #include "GameEngine/HealAction.h"
 #include "state/PlayablePawn.h"
 #include "state/GameState.h"
-#include "GameEngine/Heal.h"
+#include "state/Dice.h"
+#include "state/Place.h"
 #include "GameEngine/RuleEngine.h"
 #include <algorithm>
 
@@ -19,20 +20,29 @@ namespace GameEngine
 
     HealAction::~HealAction() = default;
 
-    bool HealAction::can_apply() const {
-        if (!target || target->get_place() != Place::Hospital) {
-            return false;
-        }
+
+    bool HealAction::is_target_in_hospital() const {
+        return (target != nullptr && target->get_place() == Place::Hospital);
+    }
+
+
+    bool HealAction::has_valid_dice_combination() const {
+
+        if (!target) return false;
 
         const auto kind = target->class_dice();
-        if (!kind) {
-            return false;
-        }
+        if (!kind) return false;
 
         const auto triskell_count = std::count(draw.begin(), draw.end(), TRISKELL);
-        const auto own_count      = std::count(draw.begin(), draw.end(), *kind);
+        const auto own_count 	  = std::count(draw.begin(), draw.end(), *kind);
 
-        return (own_count == 1 && triskell_count == 2) || (own_count == 2 && triskell_count == 1);
+        return (own_count == 1 && triskell_count == 2) ||
+               (own_count == 2 && triskell_count == 1);
+    }
+
+
+    bool HealAction::can_apply() const {
+        return is_target_in_hospital() && has_valid_dice_combination();
     }
 
     void HealAction::execute(GameState& state)

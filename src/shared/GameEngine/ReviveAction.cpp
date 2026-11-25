@@ -18,28 +18,36 @@ namespace GameEngine
 
     ReviveAction::~ReviveAction() = default;
 
-    bool ReviveAction::can_apply() const {
-        if (!target || target->get_place() != Place::Cimetery) {
-            return false;
-        }
+    bool ReviveAction::is_target_in_cemetery() const
+    {
+        return (target != nullptr && target->get_place() == Place::Cimetery);
+    }
+
+    bool ReviveAction::has_valid_dice_combination() const
+    {
+        if (!target) return false;
 
         const auto kind = target->class_dice();
-        if (!kind) {
-            return false;
-        }
+        if (!kind) return false;
 
         return std::count(draw.begin(), draw.end(), *kind) == 3;
+    }
+
+
+    bool ReviveAction::can_apply() const
+    {
+        return is_target_in_cemetery() && has_valid_dice_combination();
     }
 
     void ReviveAction::execute(GameState& state)
     {
         if (can_apply())
         {
-            target->set_place(Camp);
+            target->set_place(Camp); // Le pion ressuscité retourne au Camp
         }
     }
 
-    bool ReviveAction::validate(GameEngine::RuleEngine& rules, GameState& state){
-        return false; // à implémenter plus tard, pour l'instant on ne valide pas les actions
+    bool ReviveAction::validate(GameEngine::RuleEngine& rules, GameState& state) {
+        return false; // à implémenter plus tard
     }
 }
