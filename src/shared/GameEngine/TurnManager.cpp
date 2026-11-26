@@ -10,9 +10,6 @@ TurnManager::~TurnManager() = default;
 
 
 
-void TurnManager::next_turn(state::GameState& state) {
-    state.next_turn();
-    currentTurn = state.get_turn();
-    
-}
+
+
 }

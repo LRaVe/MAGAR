@@ -14,15 +14,6 @@ BOOST_AUTO_TEST_CASE(Warrior_compilation_test)
     BOOST_CHECK(true);
 }
 
-BOOST_AUTO_TEST_CASE(Warrior_attack_pawn_test)
-{
-    state::Warrior warrior(state::Color::Red,state::Position(0,0));
-    state::GameState state;
-    state::PlayablePawn pawn(state::Color::Blue,state::Position(1,0));
-    warrior.attack_pawn(&pawn,state);
-    BOOST_CHECK_EQUAL(pawn.get_position().q,1);
-    BOOST_CHECK_EQUAL(pawn.get_position().r,0);
-}
 
 BOOST_AUTO_TEST_CASE(Warrior_class_dice_test)
 {

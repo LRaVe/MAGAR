@@ -9,7 +9,6 @@ BOOST_AUTO_TEST_CASE(GameState_initial_state)
 
     BOOST_CHECK_EQUAL(game_state.get_turn(), 0);
     BOOST_CHECK_EQUAL(game_state.get_players().size(), 4);
-    BOOST_CHECK(game_state.get_possible_actions().empty());
 }
 
 BOOST_AUTO_TEST_CASE(GameState_initial_players)
@@ -80,14 +79,7 @@ BOOST_AUTO_TEST_CASE(GameState_board)
     BOOST_CHECK_EQUAL(&board, &game_state.get_board());
 }
 
-BOOST_AUTO_TEST_CASE(GameState_initial_possible_actions)
-{
-    state::GameState game_state;
-    auto actions = game_state.get_possible_actions();
-    actions.clear();
 
-    BOOST_CHECK(game_state.get_possible_actions().empty());
-}
 
 BOOST_AUTO_TEST_CASE(GameState_initial_pawn_positions)
 {

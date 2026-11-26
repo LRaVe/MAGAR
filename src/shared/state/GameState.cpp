@@ -13,15 +13,8 @@ GameState::GameState() :
     board(Board()),
     dice_Draw(),
     stone(Stone(Position(0,0))),
-    dragon(Dragon(Position(0,0))),
-    possible_Moves() {
-        players.reserve(NB_PLAYERS);
-        add_player(Color::Red, Position(0,0),Position(0,1));
-        add_player(Color::Blue, Position(1,0),Position(1,1));
-        add_player(Color::Green, Position(2,0),Position(2,1));
-        add_player(Color::Yellow, Position(3,0),Position(3,1));
-    }
-
+    dragon(Dragon(Position(0,0))){
+}
 GameState::~GameState() {}
 
 int GameState::get_turn() {
@@ -36,9 +29,6 @@ Player& GameState::get_current_player() {
     return players.at(current_Player_index);
 }
 
-std::vector<std::shared_ptr<GameEngine::Action>> GameState::get_possible_actions() {
-    return possible_Moves;
-}
 
 std::vector<Player>& GameState::get_players() {
     return players;
