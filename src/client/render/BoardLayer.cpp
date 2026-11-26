@@ -1,32 +1,23 @@
 #include  "render/BoardLayer.h"
-using namespace render;
 
-#include <iostream>
-#include <cmath>
+#include "Transformator.h"
+using namespace render;
 
 #include "state/GameState.h"
 #include "state/CenterTile.h"
 #include "state/ClassicTile.h"
 #include "state/NestTile.h"
-
-constexpr float SIZE_HEXA = 35.f;
+#include "render/constant.hpp"
 
 BoardLayer::BoardLayer() {
     // loading texture
-    if(!center_texture.loadFromFile("assets/img/board/center_tile.png"))
-        std::cerr << "Error: Could not load image!" << std::endl;
-    if(!nest_texture.loadFromFile("assets/img/board/nest_tile.png"))
-        std::cerr << "Error: Could not load image!" << std::endl;
-    if(!classic_texture.loadFromFile("assets/img/board/classic_tile.png"))
-        std::cerr << "Error: Could not load image!" << std::endl;
-    if(!star_texture.loadFromFile("assets/img/board/star_tile.png"))
-        std::cerr << "Error: Could not load image!" << std::endl;
-    if (!camp_texture.loadFromFile("assets/img/board/camp.png"))
-        std::cerr << "Error: Could not load image!" << std::endl;
-    if (!cemetery_texture.loadFromFile("assets/img/board/cemetery.png"))
-        std::cerr << "Error: Could not load image!" << std::endl;
-    if (!hospital_texture.loadFromFile("assets/img/board/hospital.png"))
-        std::cerr << "Error: Could not load image!" << std::endl;
+    load_texture(center_texture, BOARD_ASSET_PATH + "center_tile.png");
+    load_texture(nest_texture, BOARD_ASSET_PATH + "nest_tile.png");
+    load_texture(classic_texture, BOARD_ASSET_PATH + "classic_tile.png");
+    load_texture(star_texture, BOARD_ASSET_PATH + "star_tile.png");
+    load_texture(camp_texture, BOARD_ASSET_PATH + "camp.png");
+    load_texture(cemetery_texture, BOARD_ASSET_PATH + "cemetery.png");
+    load_texture(hospital_texture, BOARD_ASSET_PATH + "hospital.png");
 }
 
 BoardLayer::~BoardLayer() = default;
@@ -35,21 +26,21 @@ void BoardLayer::render(sf::RenderWindow& window, state::GameState& state) {
     for (const auto& tile : state.get_board().get_tiles()) {
         draw_tile(window, tile);
     }
-    draw_all_camp(window);
-    draw_all_hospital(window);
-    draw_all_cemetery(window);
+    for (auto camp : ALL_CAMP_PLACEMENT) {
+        draw_element(window,camp.position,camp.rotation,camp.color,camp_texture,CAMP_SIZE);
+    }
+    for (auto hospital : ALL_HOSPITAL_PLACEMENT) {
+        draw_element(window,hospital.position,hospital.rotation,hospital.color,hospital_texture,HOSPITAL_SIZE);
+    }
+    for (auto cemetery : ALL_CEMETERY_PLACEMENT) {
+        draw_element(window,cemetery.position,cemetery.rotation,cemetery.color,cemetery_texture,CEMETERY_SIZE);
+    }
 }
 
 void BoardLayer::draw_tile(sf::RenderWindow& window, const std::shared_ptr<state::Tile>& tile) {
     sf::CircleShape hexagon(SIZE_HEXA, 6);
 
-    auto pos = tile->get_position();
-    // Position Hex to pix
-    auto x = static_cast<float>(sqrt(3) * pos.q + sqrt(3) / 2 * pos.r);
-    auto y = static_cast<float>(3. / 2 * pos.r);
-    x = x * SIZE_HEXA;
-    y = y * SIZE_HEXA;
-    hexagon.setPosition({x,y});
+    hexagon.setPosition(Transformator::hex_to_pixel(tile->get_position()));
     hexagon.setOrigin({SIZE_HEXA, SIZE_HEXA}); // center
 
     hexagon.setOutlineThickness(2.f);
@@ -69,78 +60,20 @@ const sf::Texture& BoardLayer::get_texture_from_tile(const std::shared_ptr<state
     return star_texture;
 }
 
-
-void BoardLayer::draw_all_camp(sf::RenderWindow& window) {
-    draw_camp(window,{-270,-300},-45, sf::Color::Red);
-    draw_camp(window,{270,-300},45, sf::Color::Blue);
-    draw_camp(window,{-270,300},225, sf::Color::Green);
-    draw_camp(window,{270,300},-225, sf::Color::Yellow);
-}
-
-void BoardLayer::draw_camp(sf::RenderWindow& window, sf::Vector2f position,float rotation, sf::Color color) {
+void BoardLayer::draw_element(sf::RenderWindow& window, sf::Vector2f position, float rotation, state::Color color, sf::Texture& texture, float size) {
     sf::RectangleShape background;
-    background.setSize({150, 150});
-    background.setOrigin({75, 75});
+    background.setSize({size, size});
+    background.setOrigin({size/2, size/2});
     background.setPosition(position);
     background.setRotation(rotation);
-    background.setFillColor(color);
+    background.setFillColor(Transformator::to_sf_color(color));
     window.draw(background);
 
-    sf::RectangleShape camp;
-    camp.setSize({150,150});
-    camp.setOrigin({75,75});
-    camp.setPosition(position);
-    camp.setTexture(&camp_texture);
-    camp.setRotation(rotation);
-    window.draw(camp);
-}
-
-void BoardLayer::draw_all_hospital(sf::RenderWindow& window) {
-    draw_hospital(window,{-375,-100},180, sf::Color::Red);
-    draw_hospital(window,{375,-100},180, sf::Color::Blue);
-    draw_hospital(window,{-375,100},0, sf::Color::Green);
-    draw_hospital(window,{375,100},0, sf::Color::Yellow);
-}
-
-void BoardLayer::draw_hospital(sf::RenderWindow& window, sf::Vector2f position, float rotation, sf::Color color) {
-    sf::RectangleShape background;
-    background.setSize({100, 100});
-    background.setOrigin({50, 50});
-    background.setPosition(position);
-    background.setRotation(rotation);
-    background.setFillColor(color);
-    window.draw(background);
-
-    sf::RectangleShape hospital;
-    hospital.setSize({100,100});
-    hospital.setOrigin({50,50});
-    hospital.setPosition(position);
-    hospital.setTexture(&hospital_texture);
-    hospital.setRotation(rotation);
-    window.draw(hospital);
-}
-
-void BoardLayer::draw_all_cemetery(sf::RenderWindow& window) {
-    draw_cemetery(window,{-120,-350},90, sf::Color::Red);
-    draw_cemetery(window,{120,-350},-90, sf::Color::Blue);
-    draw_cemetery(window,{-120,350},90, sf::Color::Green);
-    draw_cemetery(window,{120,350},-90, sf::Color::Yellow);
-}
-
-void BoardLayer::draw_cemetery(sf::RenderWindow& window, sf::Vector2f position, float rotation, sf::Color color) {
-    sf::RectangleShape background;
-    background.setSize({100, 100});
-    background.setOrigin({50, 50});
-    background.setPosition(position);
-    background.setRotation(rotation);
-    background.setFillColor(color);
-    window.draw(background);
-
-    sf::RectangleShape cemetery;
-    cemetery.setSize({100,100});
-    cemetery.setOrigin({50,50});
-    cemetery.setPosition(position);
-    cemetery.setTexture(&cemetery_texture);
-    cemetery.setRotation(rotation);
-    window.draw(cemetery);
+    sf::RectangleShape element;
+    element.setSize({size,size});
+    element.setOrigin({size/2,size/2});
+    element.setPosition(position);
+    element.setTexture(&texture);
+    element.setRotation(rotation);
+    window.draw(element);
 }
