@@ -14,6 +14,10 @@ GameState::GameState() :
     dice_Draw(),
     stone(Stone(Position(0,0))),
     dragon(Dragon(Position(0,0))){
+    add_player(Color::Red, Position(0,0), Position(0,0));
+    add_player(Color::Blue, Position(0,0), Position(0,0));
+    add_player(Color::Green, Position(0,0), Position(0,0));
+    add_player(Color::Yellow, Position(0,0), Position(0,0));
 }
 GameState::~GameState() {}
 
