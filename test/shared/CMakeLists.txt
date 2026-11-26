@@ -21,4 +21,7 @@ add_custom_test(MoveAction)
 add_custom_test(NestTile)
 add_custom_test(StarTile)
 add_custom_test(Tile)
+add_custom_test(GameEngine)
+add_custom_test(TurnManager)
+add_custom_test(RuleEngine)
 # vim: set sw=2 sts=2 et:
