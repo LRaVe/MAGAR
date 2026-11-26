@@ -1,8 +1,9 @@
-#include "state/Telekinesis.h"
+#include "GameEngine/Telekinesis.h"
 #include "state/GameState.h"
 #include <algorithm>
 #include <cmath>
 
+namespace GameEngine {
 using namespace state;
 
 Telekinesis::Telekinesis(const Position& destination) : Spell(), destination(destination) {}
@@ -73,4 +74,6 @@ std::vector<Position> Telekinesis::ListOfMoves(GameState& state) const
 void Telekinesis::execute(GameState& state) const
 {
         state.get_stone().set_position(this->destination);
+}
+
 }

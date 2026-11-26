@@ -1,13 +1,13 @@
 #include "GameEngine/RuleEngine.h"
 #include "state/GameState.h"
-#include "state/Action.h"
 #include "state/PlayablePawn.h"
 #include "state/Sorcerer.h"
-#include "state/MoveAction.h"
-#include "state/AttackAction.h"
 #include "state/Warrior.h"
 #include "state/Player.h"
 #include "state/Board.h"
+#include "GameEngine/Action.h"
+#include "GameEngine/AttackAction.h"
+#include "GameEngine/MoveAction.h"
 
 #include <memory>
 
@@ -19,14 +19,14 @@ RuleEngine::RuleEngine() = default;
 RuleEngine::~RuleEngine() = default;
 
 bool RuleEngine::is_valid(state::GameState& game_state,
-                           state::Action& action) {
+                          Action& action) {
     // Identifier le type d'action puis appliquer la règle correspondante.
     return action.validate(*this, game_state);
 }
 
-std::vector<std::shared_ptr<state::Action>> RuleEngine::possible_actions(
+std::vector<std::shared_ptr<Action>> RuleEngine::possible_actions(
     state::GameState& game_state) {
-    std::vector<std::shared_ptr<state::Action>> actions;
+    std::vector<std::shared_ptr<Action>> actions;
 
     auto draw = game_state.get_draw_dice();
 
@@ -45,7 +45,7 @@ std::vector<std::shared_ptr<state::Action>> RuleEngine::possible_actions(
         for (const state::Position& destination : origin.neighbors()) {
             if (can_move(*pawn, destination, game_state)) {
                 actions.push_back(
-                    std::make_shared<state::MoveAction>(pawn, destination));
+                    std::make_shared<MoveAction>(pawn, destination));
             }
         }
 
@@ -62,7 +62,7 @@ std::vector<std::shared_ptr<state::Action>> RuleEngine::possible_actions(
                 if (target->get_place() == state::Place::Arena
                     && can_attack(*pawn, *target, game_state)) {
                     actions.push_back(
-                        std::make_shared<state::AttackAction>(pawn, target));
+                        std::make_shared<AttackAction>(pawn, target));
                 }
             }
         }
@@ -98,7 +98,7 @@ bool RuleEngine::can_attack(state::PlayablePawn& attacker,
 }
 
 bool RuleEngine::can_cast(state::Sorcerer& caster,
-                          state::Spell& spell,
+                          Spell& spell,
                           state::GameState& game_state) {
     // Vérifier que le lanceur peut encore lancer un sort
     // et qu’il se trouve sur une case autorisée.

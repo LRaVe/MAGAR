@@ -2,14 +2,16 @@
 // Created by plt on 11/12/26.
 //
 
-#include "state/ReviveAction.h"
+#include "GameEngine/ReviveAction.h"
 #include "state/PlayablePawn.h"
 #include "state/GameState.h"
 #include "GameEngine/RuleEngine.h"
 #include <algorithm>
 
-namespace state
+namespace GameEngine
 {
+    using namespace state;
+
     ReviveAction::ReviveAction(PlayablePawn* target, const std::vector<state::Dice>& draw)
         : target(target), draw(draw) {
     }

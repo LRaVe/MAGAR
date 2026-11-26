@@ -1,5 +1,6 @@
 #include "state/GameState.h"
 #include "state/Board.h"
+#include "GameEngine/Action.h"
 
 #include <memory>
 const int NB_PLAYERS = 4;
@@ -10,10 +11,10 @@ GameState::GameState() :
     players(),
     current_Player_index(0),
     board(Board()),
-    possible_Moves(),
     dice_Draw(),
     stone(Stone(Position(0,0))),
-    dragon(Dragon(Position(0,0)))  {
+    dragon(Dragon(Position(0,0))),
+    possible_Moves() {
         players.reserve(NB_PLAYERS);
         add_player(Color::Red, Position(0,0),Position(0,1));
         add_player(Color::Blue, Position(1,0),Position(1,1));
@@ -35,7 +36,7 @@ Player& GameState::get_current_player() {
     return players.at(current_Player_index);
 }
 
-std::vector<std::shared_ptr<Action>> GameState::get_possible_actions() {
+std::vector<std::shared_ptr<GameEngine::Action>> GameState::get_possible_actions() {
     return possible_Moves;
 }
 

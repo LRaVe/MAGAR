@@ -1,10 +1,11 @@
-#include "state/MoveAction.h"
+#include "GameEngine/MoveAction.h"
 #include "state/Pawn.h"
 #include "state/PlayablePawn.h"
 #include "state/GameState.h"
 #include "state/DrawDice.h"
 #include "GameEngine/RuleEngine.h"
 
+namespace GameEngine {
 using namespace state;
 
 MoveAction::MoveAction(Pawn* pawn, Position destination)
@@ -70,4 +71,6 @@ void MoveAction::execute(GameState& state)
 
 bool MoveAction::validate(GameEngine::RuleEngine& rules, GameState& state) {
     return false;
+}
+
 }

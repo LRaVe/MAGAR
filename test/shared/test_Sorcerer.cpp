@@ -1,7 +1,7 @@
 #include <boost/test/unit_test.hpp>
 #include "../../src/shared/state/Sorcerer.h"
 #include "../../src/shared/state/GameState.h"
-#include "../../src/shared/state/Spell.h"
+#include "../../src/shared/GameEngine/Spell.h"
 
 BOOST_AUTO_TEST_CASE(TestStaticAssert)
 {
@@ -15,7 +15,7 @@ BOOST_AUTO_TEST_CASE(Sorcerer_compilation_test)
     BOOST_CHECK(true);
 }
 
-class TestSpell : public state::Spell {
+class TestSpell : public GameEngine::Spell {
 public :
     mutable int execution_count=0;
     mutable bool executed=false;

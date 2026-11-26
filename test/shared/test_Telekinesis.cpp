@@ -1,5 +1,5 @@
 #include <boost/test/unit_test.hpp>
-#include "../../src/shared/state/Telekinesis.h"
+#include "../../src/shared/GameEngine/Telekinesis.h"
 #include "../../src/shared/state/Player.h"
 #include "../../src/shared/state/Stone.h"
 #include "../../src/shared/state/GameState.h"
@@ -12,14 +12,14 @@ BOOST_AUTO_TEST_CASE(TestStaticAssert)
 BOOST_AUTO_TEST_CASE(Telekinesis_compilation_test)
 {
     state::Position destination(0,0);
-    state::Telekinesis telekinesis(destination);
+    GameEngine::Telekinesis telekinesis(destination);
     (void)telekinesis;
     BOOST_CHECK(true);
 }
 
 BOOST_AUTO_TEST_CASE(Telekinesis_get_nb_of_dice_warrior_test)
 {
-    state::Telekinesis telekinesis(state::Position(0,0));
+    GameEngine::Telekinesis telekinesis(state::Position(0,0));
     state::GameState state;
 
     state.get_stone().set_position(state::Position(0,0));
@@ -29,7 +29,7 @@ BOOST_AUTO_TEST_CASE(Telekinesis_get_nb_of_dice_warrior_test)
 
 BOOST_AUTO_TEST_CASE(Telekinesis_get_nb_of_dice_sorcerer_test)
 {
-    state::Telekinesis telekinesis(state::Position(0,0));
+    GameEngine::Telekinesis telekinesis(state::Position(0,0));
     state::GameState state;
 
     state.get_stone().set_position(state::Position(0,1));
@@ -39,7 +39,7 @@ BOOST_AUTO_TEST_CASE(Telekinesis_get_nb_of_dice_sorcerer_test)
 
 BOOST_AUTO_TEST_CASE(Telekinesis_get_nb_of_dice_later_player_test)
 {
-    state::Telekinesis telekinesis(state::Position(0,0));
+    GameEngine::Telekinesis telekinesis(state::Position(0,0));
     state::GameState state;
 
     state.get_stone().set_position(state::Position(1,0));
@@ -49,7 +49,7 @@ BOOST_AUTO_TEST_CASE(Telekinesis_get_nb_of_dice_later_player_test)
 
 BOOST_AUTO_TEST_CASE(Telekinesis_get_nb_of_dice_no_pawn_test)
 {
-    state::Telekinesis telekinesis(state::Position(0,0));
+    GameEngine::Telekinesis telekinesis(state::Position(0,0));
     state::GameState state;
 
     state.get_stone().set_position(state::Position(5,5));
@@ -59,7 +59,7 @@ BOOST_AUTO_TEST_CASE(Telekinesis_get_nb_of_dice_no_pawn_test)
 
 BOOST_AUTO_TEST_CASE(Telekinesis_list_moves_center_test)
 {
-    state::Telekinesis telekinesis(state::Position(0,0));
+    GameEngine::Telekinesis telekinesis(state::Position(0,0));
     state::GameState state;
     
     state.get_stone().set_position(state::Position(0,0));
@@ -69,7 +69,7 @@ BOOST_AUTO_TEST_CASE(Telekinesis_list_moves_center_test)
 
 BOOST_AUTO_TEST_CASE(Telekinesis_list_moves_edge_test)
 {
-    state::Telekinesis telekinesis(state::Position(0,0));
+    GameEngine::Telekinesis telekinesis(state::Position(0,0));
     state::GameState state;
 
     state.get_stone().set_position(state::Position(5,-5));
@@ -79,7 +79,7 @@ BOOST_AUTO_TEST_CASE(Telekinesis_list_moves_edge_test)
 
 BOOST_AUTO_TEST_CASE(Telekinesis_execute_test)
 {
-    state::Telekinesis telekinesis(state::Position(4,-2));
+    GameEngine::Telekinesis telekinesis(state::Position(4,-2));
     state::GameState state;
     telekinesis.execute(state);
     BOOST_CHECK_EQUAL(state.get_stone().get_position().q, 4);

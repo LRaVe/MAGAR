@@ -1,8 +1,7 @@
 #include "GameEngine/GameEngine.h"
 #include "state/GameState.h"
-#include "state/Action.h"
 #include "GameEngine/RuleEngine.h"
-#include "GameEngine/ActionExecutor.h"
+#include "GameEngine/Action.h"
 #include "GameEngine/TurnManager.h"
 
 
@@ -17,20 +16,23 @@ GameEngine::~GameEngine() = default;
 
 void GameEngine::start_game() {
     // Implementation of starting the game
+    
 }
 
 void GameEngine::start_turn() {
     // Implementation of starting a turn
+    state.get_draw_dice().roll(3);
+    
+
       
 }
 
-void GameEngine::submit_action(state::Action& action) {
+void GameEngine::submit_action(Action& action) {
     // Implementation of submitting an action
     if(!rules.is_valid(state,action)){
         return;
     }
 
-    executor.execute(action, state);
 }
 
 void GameEngine::end_turn() {

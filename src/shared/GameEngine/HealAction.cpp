@@ -2,15 +2,17 @@
 // Created by plt on 11/12/26.
 //
 
-#include "state/HealAction.h"
+#include "GameEngine/HealAction.h"
 #include "state/PlayablePawn.h"
 #include "state/GameState.h"
-#include "state/Heal.h"
+#include "GameEngine/Heal.h"
 #include "GameEngine/RuleEngine.h"
 #include <algorithm>
 
-namespace state
+namespace GameEngine
 {
+    using namespace state;
+
     HealAction::HealAction(PlayablePawn* target, const std::vector<state::Dice>& draw)
         : target(target), draw(draw) {
     }

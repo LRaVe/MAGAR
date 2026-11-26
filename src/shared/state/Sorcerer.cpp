@@ -1,6 +1,6 @@
 #include "state/Sorcerer.h"
-#include "state/Spell.h"
-#include "state/AttackAction.h"
+#include "GameEngine/Spell.h"
+#include "GameEngine/AttackAction.h"
 
 using namespace state;
 
@@ -12,7 +12,7 @@ Sorcerer::Sorcerer(Color color, Position position)
 Sorcerer::~Sorcerer() {}
 
 
-bool Sorcerer::cast_spell(const Spell& spell, GameState& state) {
+bool Sorcerer::cast_spell(const GameEngine::Spell& spell, GameState& state) {
     if (!can_spell) {
         return false;
     }
@@ -23,7 +23,7 @@ bool Sorcerer::cast_spell(const Spell& spell, GameState& state) {
 }
 
 void Sorcerer::attack_pawn(PlayablePawn* pawn, GameState& state) { 
-    AttackAction attack_action(this, pawn);
+    GameEngine::AttackAction attack_action(this, pawn);
     attack_action.execute(state);
 }
 

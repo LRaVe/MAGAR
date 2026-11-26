@@ -2,7 +2,7 @@
 // Created by plt on 11/13/26.
 //
 
-#include "state/CastAction.h"
+#include "GameEngine/CastAction.h"
 #include "state/PlayablePawn.h"
 #include "state/Sorcerer.h"
 #include "state/Tile.h"
@@ -12,8 +12,10 @@
 #include "GameEngine/RuleEngine.h"
 #include <memory>
 
-namespace state
+namespace GameEngine
 {
+    using namespace state;
+
     CastAction::CastAction(PlayablePawn* caster, Spell* spell) : caster(caster), spell(spell)
     {
 

@@ -1,4 +1,4 @@
-#include "state/AttackAction.h"
+#include "GameEngine/AttackAction.h"
 #include "state/GameState.h"
 #include "state/PlayablePawn.h"
 #include "state/AttackDice.h"
@@ -6,6 +6,7 @@
 #include <cmath>
 #include <iostream>
 
+namespace GameEngine {
 using namespace state;
 
 AttackAction::AttackAction(PlayablePawn* attacker, PlayablePawn* target) : attacker(attacker), target(target) {
@@ -92,4 +93,6 @@ void AttackAction::resolve_combat(int attacker_successes, int target_successes)
     {
         std::cout << "[Combat] Egalité ! (" << attacker_successes << "-" << target_successes << "). Rien ne se passe" << std::endl;
     }
+}
+
 }
