@@ -87,3 +87,7 @@ bool GameState::stone_is_on() {
     }
     return stone_on_player;
 }
+
+void GameState::set_draw(const std::vector<Dice>& dice) {
+    dice_Draw.set_draw(dice);
+}
