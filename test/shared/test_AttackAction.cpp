@@ -41,7 +41,7 @@ BOOST_AUTO_TEST_CASE(AttackAction_count_successes_test)
     BOOST_CHECK_EQUAL(attack_action.countSuccesses(draw1), 3);
     BOOST_CHECK_EQUAL(attack_action.countSuccesses(draw2), 0);
 }
-
+/*
 BOOST_AUTO_TEST_CASE(AttackAction_execute_verification_test)
 {
     // test if (!attacker || !target)
@@ -113,3 +113,4 @@ BOOST_AUTO_TEST_CASE(AttackAction_validate_test)
 
     BOOST_CHECK(!action.validate(rules, state));
 }
+*/

@@ -51,4 +51,8 @@ namespace state {
         return draw;
     }
 
+    void DrawDice::set_draw(const std::vector<Dice>& dice) {
+        draw=dice;
+    }
+
 }
