@@ -593,6 +593,15 @@
           <dia:attribute name="class_scope"><dia:boolean val="false"/></dia:attribute>
         </dia:composite>
         <dia:composite type="umlattribute">
+          <dia:attribute name="name"><dia:string>#actor_buttons#</dia:string></dia:attribute>
+          <dia:attribute name="type"><dia:string>#std::array&lt;sf::FloatRect, 3&gt;#</dia:string></dia:attribute>
+          <dia:attribute name="value"><dia:string>##</dia:string></dia:attribute>
+          <dia:attribute name="comment"><dia:string>##</dia:string></dia:attribute>
+          <dia:attribute name="visibility"><dia:enum val="1"/></dia:attribute>
+          <dia:attribute name="abstract"><dia:boolean val="false"/></dia:attribute>
+          <dia:attribute name="class_scope"><dia:boolean val="false"/></dia:attribute>
+        </dia:composite>
+        <dia:composite type="umlattribute">
           <dia:attribute name="name"><dia:string>#end_turn_bounds#</dia:string></dia:attribute>
           <dia:attribute name="type"><dia:string>#sf::FloatRect#</dia:string></dia:attribute>
           <dia:attribute name="value"><dia:string>##</dia:string></dia:attribute>
@@ -925,6 +934,43 @@
           <dia:attribute name="query"><dia:boolean val="false"/></dia:attribute>
           <dia:attribute name="class_scope"><dia:boolean val="false"/></dia:attribute>
           <dia:attribute name="parameters"></dia:attribute>
+        </dia:composite>
+
+        <dia:composite type="umloperation">
+          <dia:attribute name="name"><dia:string>#has_actor_actions#</dia:string></dia:attribute>
+          <dia:attribute name="stereotype"><dia:string>##</dia:string></dia:attribute>
+          <dia:attribute name="type"><dia:string>#bool#</dia:string></dia:attribute>
+          <dia:attribute name="visibility"><dia:enum val="1"/></dia:attribute>
+          <dia:attribute name="comment"><dia:string>##</dia:string></dia:attribute>
+          <dia:attribute name="abstract"><dia:boolean val="false"/></dia:attribute>
+          <dia:attribute name="inheritance_type"><dia:enum val="2"/></dia:attribute>
+          <dia:attribute name="query"><dia:boolean val="true"/></dia:attribute>
+          <dia:attribute name="class_scope"><dia:boolean val="false"/></dia:attribute>
+          <dia:attribute name="parameters"><dia:composite type="umlparameter">
+            <dia:attribute name="name"><dia:string>#actor#</dia:string></dia:attribute>
+            <dia:attribute name="type"><dia:string>#state::Pawn*#</dia:string></dia:attribute>
+            <dia:attribute name="value"><dia:string>##</dia:string></dia:attribute>
+            <dia:attribute name="comment"><dia:string>##</dia:string></dia:attribute>
+            <dia:attribute name="kind"><dia:enum val="0"/></dia:attribute>
+          </dia:composite></dia:attribute>
+        </dia:composite>
+        <dia:composite type="umloperation">
+          <dia:attribute name="name"><dia:string>#actor_for_button#</dia:string></dia:attribute>
+          <dia:attribute name="stereotype"><dia:string>##</dia:string></dia:attribute>
+          <dia:attribute name="type"><dia:string>#state::Pawn*#</dia:string></dia:attribute>
+          <dia:attribute name="visibility"><dia:enum val="1"/></dia:attribute>
+          <dia:attribute name="comment"><dia:string>##</dia:string></dia:attribute>
+          <dia:attribute name="abstract"><dia:boolean val="false"/></dia:attribute>
+          <dia:attribute name="inheritance_type"><dia:enum val="2"/></dia:attribute>
+          <dia:attribute name="query"><dia:boolean val="true"/></dia:attribute>
+          <dia:attribute name="class_scope"><dia:boolean val="false"/></dia:attribute>
+          <dia:attribute name="parameters"><dia:composite type="umlparameter">
+            <dia:attribute name="name"><dia:string>#slot#</dia:string></dia:attribute>
+            <dia:attribute name="type"><dia:string>#std::size_t#</dia:string></dia:attribute>
+            <dia:attribute name="value"><dia:string>##</dia:string></dia:attribute>
+            <dia:attribute name="comment"><dia:string>##</dia:string></dia:attribute>
+            <dia:attribute name="kind"><dia:enum val="0"/></dia:attribute>
+          </dia:composite></dia:attribute>
         </dia:composite>
       </dia:attribute>
       <dia:attribute name="template">

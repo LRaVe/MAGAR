@@ -108,7 +108,7 @@ bool AttackAction::can_apply() const
 void AttackAction::execute(GameState& game_state)
 {
     // Combat seulement si can_apply est valide
-    if (!can_apply() || game_state.has_attacked_this_turn()) {
+    if (!can_apply() || game_state.has_attacked_this_turn(*attacker)) {
         std::cerr << "AttackAction Erreur : Attaque illégale !" << std::endl;
         return;
     }
@@ -129,7 +129,7 @@ void AttackAction::execute(GameState& game_state)
 
     // Résolution du combat
     resolve_combat(attackerSuccesses, targetSuccesses);
-    game_state.mark_attack_used();
+    game_state.mark_attack_used(*attacker);
 }
 
 void AttackAction::resolve_combat(int attacker_successes, int target_successes)

@@ -4,9 +4,6 @@
 using namespace render;
 
 #include "state/GameState.h"
-#include "state/CenterTile.h"
-#include "state/ClassicTile.h"
-#include "state/NestTile.h"
 #include "render/constant.hpp"
 
 BoardLayer::BoardLayer() {
@@ -52,12 +49,11 @@ void BoardLayer::draw_tile(sf::RenderWindow& window, const std::shared_ptr<state
 }
 
 const sf::Texture& BoardLayer::get_texture_from_tile(const std::shared_ptr<state::Tile>& tile) const {
-    auto res = classic_texture;
-    if (std::dynamic_pointer_cast<state::CenterTile>(tile)) return center_texture;
-    if (std::dynamic_pointer_cast<state::NestTile>(tile)) return nest_texture;
-    if (std::dynamic_pointer_cast<state::ClassicTile>(tile)) return classic_texture;
-    // else
-    return star_texture;
+    const state::Position position = tile->get_position();
+    if (position.q == 0 && position.r == 0) return center_texture;
+    if (tile->is_nested_tile()) return nest_texture;
+    if (tile->is_star_tile()) return star_texture;
+    return classic_texture;
 }
 
 void BoardLayer::draw_element(sf::RenderWindow& window, sf::Vector2f position, float rotation, state::Color color, sf::Texture& texture, float size) {

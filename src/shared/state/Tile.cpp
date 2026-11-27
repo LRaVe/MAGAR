@@ -16,6 +16,11 @@ bool Tile::is_star_tile() const
     return false;
 }
 
+bool Tile::is_nested_tile() const
+{
+    return false;
+}
+
 Position Tile::get_position() const {
     return position;
 }

@@ -15,3 +15,8 @@ NestTile::~NestTile() = default;
 void NestTile::effect() {
     cout << "Nest tile effect" << endl;
 }
+
+bool NestTile::is_nested_tile() const
+{
+    return true;
+}

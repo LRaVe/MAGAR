@@ -3,11 +3,10 @@
 #include "state/PlayablePawn.h"
 #include "state/GameState.h"
 #include "state/Board.h"
-#include "state/CenterTile.h"
 #include "state/DrawDice.h"
 #include "state/Dragon.h"
-#include "state/NestTile.h"
 #include "state/Player.h"
+#include "state/Tile.h"
 #include "GameEngine/RuleEngine.h"
 
 #include <algorithm>
@@ -78,14 +77,14 @@ static Dice get_required_die_for(Pawn* pawn) {
 // méthodes de verification
 
 // 1. Vérification du pion
-bool MoveAction::is_pawn_eligible() const
+bool MoveAction::is_pawn_eligible(GameState& state) const
 {
     if (!pawn) {
         return false;
     }
 
     auto* playable = pawn->as_playable();
-    if (!playable && !dynamic_cast<Dragon*>(pawn)) {
+    if (!playable && pawn != &state.get_dragon()) {
         return false;
     }
     if (playable
@@ -135,7 +134,13 @@ bool MoveAction::is_destination_valid(GameState& state) const
     }
 
     // La tuile doit réellement exister sur le plateau
-    if (state.get_board().get_tile_from(destination) == nullptr) {
+    const auto tile = state.get_board().get_tile_from(destination);
+    if (!tile) {
+        return false;
+    }
+
+    const bool dragon_move = pawn == &state.get_dragon();
+    if (dragon_move && tile->is_star_tile()) {
         return false;
     }
 
@@ -157,7 +162,7 @@ bool MoveAction::has_required_die(GameState& state) const
 
 bool MoveAction::can_apply(GameState& state) const
 {
-    return is_pawn_eligible()
+    return is_pawn_eligible(state)
         && is_destination_valid(state)
         && has_required_die(state);
 }
@@ -175,7 +180,7 @@ void MoveAction::execute(GameState& state)
         auto* playable = pawn->as_playable();
         const bool entering_arena =
             playable && playable->get_place() == Place::Camp;
-        const bool dragon_move = dynamic_cast<Dragon*>(pawn) != nullptr;
+        const bool dragon_move = pawn == &state.get_dragon();
         pawn->set_position(destination);
 
         if (entering_arena) {
@@ -184,9 +189,7 @@ void MoveAction::execute(GameState& state)
 
         if (dragon_move) {
             const auto tile = state.get_board().get_tile_from(destination);
-            const bool in_nest =
-                std::dynamic_pointer_cast<NestTile>(tile) != nullptr
-                || std::dynamic_pointer_cast<CenterTile>(tile) != nullptr;
+            const bool in_nest = tile && tile->is_nested_tile();
             const Place destination_place = in_nest ? Place::Cimetery : Place::Hospital;
 
             for (Player& player : state.get_players()) {

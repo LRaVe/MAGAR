@@ -134,23 +134,44 @@ BOOST_AUTO_TEST_CASE(AttackAction_class_dice_and_star_bonus_test)
 BOOST_AUTO_TEST_CASE(AttackAction_only_once_per_turn_test)
 {
     state::GameState game_state;
-    state::PlayablePawn& attacker = game_state.get_players()[0].get_warrior();
-    state::PlayablePawn& target = game_state.get_players()[1].get_warrior();
-    attacker.set_place(state::Place::Arena);
-    target.set_place(state::Place::Arena);
-    attacker.set_position(state::Position(0, 0));
-    target.set_position(state::Position(1, 0));
-    attacker.set_attack(1);
-    target.set_attack(1);
+    state::Player& current_player = game_state.get_players()[0];
+    state::Player& opponent = game_state.get_players()[1];
+    state::PlayablePawn& warrior = current_player.get_warrior();
+    state::PlayablePawn& sorcerer = current_player.get_sorcerer();
+    state::PlayablePawn& warrior_target = opponent.get_warrior();
+    state::PlayablePawn& sorcerer_target = opponent.get_sorcerer();
+    for (state::PlayablePawn* pawn : {
+             &warrior, &sorcerer, &warrior_target, &sorcerer_target}) {
+        pawn->set_place(state::Place::Arena);
+        pawn->set_attack(1);
+    }
+    warrior.set_position(state::Position(0, 0));
+    warrior_target.set_position(state::Position(1, 0));
+    sorcerer.set_position(state::Position(0, 1));
+    sorcerer_target.set_position(state::Position(1, 1));
 
-    GameEngine::AttackAction action(&attacker, &target);
+    GameEngine::AttackAction warrior_attack(&warrior, &warrior_target);
+    GameEngine::AttackAction sorcerer_attack(&sorcerer, &sorcerer_target);
     GameEngine::RuleEngine rules;
 
-    BOOST_CHECK(action.validate(rules, game_state));
-    action.execute(game_state);
-    BOOST_CHECK(game_state.has_attacked_this_turn());
-    BOOST_CHECK(!action.validate(rules, game_state));
+    BOOST_CHECK(warrior_attack.validate(rules, game_state));
+    warrior_attack.execute(game_state);
+    BOOST_CHECK(game_state.has_attacked_this_turn(warrior));
+    BOOST_CHECK(!warrior_attack.validate(rules, game_state));
+    bool sorcerer_attack_is_available = false;
+    for (const auto& action : rules.possible_actions(game_state)) {
+        const auto attack =
+            std::dynamic_pointer_cast<GameEngine::AttackAction>(action);
+        if (attack && attack->get_attacker() == &sorcerer) {
+            sorcerer_attack_is_available = true;
+        }
+    }
+    BOOST_CHECK(sorcerer_attack_is_available);
+    BOOST_CHECK(sorcerer_attack.validate(rules, game_state));
+    sorcerer_attack.execute(game_state);
+    BOOST_CHECK(game_state.has_attacked_this_turn(sorcerer));
 
     game_state.next_turn();
-    BOOST_CHECK(!game_state.has_attacked_this_turn());
+    BOOST_CHECK(!game_state.has_attacked_this_turn(warrior));
+    BOOST_CHECK(!game_state.has_attacked_this_turn(sorcerer));
 }

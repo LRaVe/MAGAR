@@ -1,5 +1,6 @@
 #include <boost/test/unit_test.hpp>
 #include <algorithm>
+#include <array>
 #include "../../src/shared/GameEngine/MoveAction.h"
 #include "../../src/shared/GameEngine/Engine.h"
 #include "../../src/shared/state/PlayablePawn.h"
@@ -40,7 +41,7 @@ BOOST_AUTO_TEST_CASE(MoveAction_camp_entry_destination_test)
     const state::Position entry = entries->front();
     GameEngine::MoveAction action(&pawn, entry);
 
-    BOOST_CHECK(action.is_pawn_eligible());
+    BOOST_CHECK(action.is_pawn_eligible(game_state));
     BOOST_CHECK(action.is_destination_valid(game_state));
 
     const auto other_entries =
@@ -157,6 +158,60 @@ BOOST_AUTO_TEST_CASE(MoveAction_dragon_wounds_outside_nest_test)
     action.execute(game_state);
 
     BOOST_CHECK_EQUAL(target.get_place(), state::Place::Hospital);
+}
+
+BOOST_AUTO_TEST_CASE(MoveAction_dragon_wounds_on_center_tile_test)
+{
+    state::GameState game_state;
+    game_state.get_draw_dice().roll(256);
+    state::Dragon& dragon = game_state.get_dragon();
+    dragon.set_position(state::Position(1, 0));
+    state::PlayablePawn& target = game_state.get_players()[1].get_warrior();
+    target.set_place(state::Place::Arena);
+    target.set_position(state::Position(0, 0));
+
+    GameEngine::MoveAction action(&dragon, state::Position(0, 0));
+    BOOST_REQUIRE(action.can_apply(game_state));
+    action.execute(game_state);
+
+    BOOST_CHECK_EQUAL(target.get_place(), state::Place::Hospital);
+}
+
+BOOST_AUTO_TEST_CASE(MoveAction_dragon_cannot_land_on_star_test)
+{
+    state::GameState game_state;
+    game_state.get_draw_dice().roll(256);
+    state::Dragon& dragon = game_state.get_dragon();
+    const auto tiles = game_state.get_board().get_tiles();
+    const auto star = std::find_if(
+        tiles.begin(),
+        tiles.end(),
+        [](const auto& tile) { return tile->is_star_tile(); });
+    BOOST_REQUIRE(star != tiles.end());
+
+    const state::Position destination = (*star)->get_position();
+    const std::array<state::Position, 6> adjacent_positions = {{
+        state::Position(destination.q - 1, destination.r),
+        state::Position(destination.q + 1, destination.r),
+        state::Position(destination.q, destination.r - 1),
+        state::Position(destination.q, destination.r + 1),
+        state::Position(destination.q - 1, destination.r + 1),
+        state::Position(destination.q + 1, destination.r - 1)
+    }};
+    const auto adjacent = std::find_if(
+        adjacent_positions.begin(),
+        adjacent_positions.end(),
+        [&destination](const state::Position& position) {
+            return position.is_in_radius(5)
+                && position.is_adjacent_to(destination);
+        });
+    BOOST_REQUIRE(adjacent != adjacent_positions.end());
+
+    dragon.set_position(*adjacent);
+    GameEngine::MoveAction action(&dragon, destination);
+
+    BOOST_CHECK(!action.is_destination_valid(game_state));
+    BOOST_CHECK(!action.can_apply(game_state));
 }
 
 BOOST_AUTO_TEST_CASE(MoveAction_only_dragon_uses_triskell_test)

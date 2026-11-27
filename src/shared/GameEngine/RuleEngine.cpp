@@ -107,7 +107,7 @@ std::vector<std::shared_ptr<Action>> RuleEngine::possible_actions(state::GameSta
             }
         }
         // attaques possibles
-        if (game_state.has_attacked_this_turn()) {
+        if (game_state.has_attacked_this_turn(*pawn)) {
             continue;
         }
 
@@ -153,7 +153,7 @@ bool RuleEngine::can_attack(state::PlayablePawn& attacker,
                                 state::PlayablePawn& target,
                                 state::GameState& game_state)
 {
-    if (game_state.has_attacked_this_turn()) {
+    if (game_state.has_attacked_this_turn(attacker)) {
         return false;
     }
     AttackAction action(&attacker, &target);

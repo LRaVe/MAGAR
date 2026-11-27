@@ -69,7 +69,7 @@ sf::Texture& PawnLayer::get_warrior_texture_from(state::Color pawn_color) {
 }
 
 sf::Texture& PawnLayer::get_texture_from(state::PlayablePawn& pawn) {
-    if (dynamic_cast<state::Warrior*>(&pawn))
+    if (pawn.class_dice() == state::Dice::WARRIOR)
         return get_warrior_texture_from(pawn.get_color());
     return get_mage_texture_from(pawn.get_color());
 }

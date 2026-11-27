@@ -24,6 +24,12 @@ BOOST_AUTO_TEST_CASE(Tile_is_star_tile_test)
     BOOST_CHECK(!tile.is_star_tile());
 }
 
+BOOST_AUTO_TEST_CASE(Tile_is_nested_tile_test)
+{
+    state::Tile tile(state::Position(0,0));
+    BOOST_CHECK(!tile.is_nested_tile());
+}
+
 BOOST_AUTO_TEST_CASE(Tile_get_position_test)
 {
     state::Position pos(0,0);

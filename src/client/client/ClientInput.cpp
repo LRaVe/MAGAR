@@ -18,15 +18,19 @@
 #include "state/Player.h"
 #include "state/PlayablePawn.h"
 #include "state/Tile.h"
-#include "state/Warrior.h"
 #include "client/ClientInput.h"
 
 namespace {
 constexpr float BUTTON_WIDTH = 124.f;
+constexpr float ACTOR_BUTTON_WIDTH = 110.f;
 constexpr float BUTTON_HEIGHT = 36.f;
 constexpr float BUTTON_GAP = 8.f;
-constexpr float FIRST_BUTTON_X = -350.f;
-constexpr float BUTTON_Y = -385.f;
+constexpr float ACTION_BUTTON_X = 345.f;
+constexpr float ACTOR_BUTTON_X = 482.f;
+constexpr float ACTION_BUTTON_Y = -120.f;
+constexpr float ACTOR_BUTTON_Y = -96.f;
+constexpr float END_TURN_Y = 320.f;
+constexpr float STATUS_Y = 220.f;
 constexpr float PAWN_HIT_RADIUS = render::SIZE_PAWN + 8.f;
 
 bool same_position(const state::Position& lhs, const state::Position& rhs)
@@ -36,7 +40,7 @@ bool same_position(const state::Position& lhs, const state::Position& rhs)
 
 int pawn_slot(state::PlayablePawn& pawn)
 {
-    return dynamic_cast<state::Warrior*>(&pawn) ? 0 : 1;
+    return pawn.class_dice() == state::Dice::WARRIOR ? 0 : 1;
 }
 
 sf::Vector2f pawn_to_pixel(state::Pawn& pawn)
@@ -45,10 +49,7 @@ sf::Vector2f pawn_to_pixel(state::Pawn& pawn)
         return render::Transformator::playable_pawn_to_pixel(
             *playable, pawn_slot(*playable));
     }
-    if (state::Dragon* dragon = dynamic_cast<state::Dragon*>(&pawn)) {
-        return render::Transformator::hex_to_pixel(dragon->get_position());
-    }
-    return {};
+    return render::Transformator::hex_to_pixel(pawn.get_position());
 }
 }
 
@@ -67,22 +68,37 @@ constexpr const char* ACTION_LABELS[] = {
     "Soigner",
     "Ressusciter"
 };
+constexpr const char* ACTOR_LABELS[] = {
+    "Warrior",
+    "Sorcerer",
+    "Dragon"
+};
 }
 
 ClientInput::ClientInput(sf::RenderWindow& window, GameEngine::Engine& engine)
     : window(window),
       engine(engine),
       action_buttons{},
-      end_turn_bounds(FIRST_BUTTON_X + 4.f * (BUTTON_WIDTH + BUTTON_GAP),
-                      BUTTON_Y, BUTTON_WIDTH, BUTTON_HEIGHT),
+    actor_buttons{},
+    end_turn_bounds(ACTOR_BUTTON_X, END_TURN_Y,
+                    ACTOR_BUTTON_WIDTH, BUTTON_HEIGHT),
       message("Choisissez un type d'action.")
 {
     for (std::size_t i = 0; i < action_buttons.size(); ++i) {
         action_buttons[i] = sf::FloatRect(
-            FIRST_BUTTON_X + static_cast<float>(i) * (BUTTON_WIDTH + BUTTON_GAP),
-            BUTTON_Y,
+          ACTION_BUTTON_X,
+          ACTION_BUTTON_Y
+              + static_cast<float>(i) * (BUTTON_HEIGHT + BUTTON_GAP),
             BUTTON_WIDTH,
             BUTTON_HEIGHT);
+    }
+    for (std::size_t i = 0; i < actor_buttons.size(); ++i) {
+      actor_buttons[i] = sf::FloatRect(
+          ACTOR_BUTTON_X,
+          ACTOR_BUTTON_Y
+              + static_cast<float>(i) * (BUTTON_HEIGHT + BUTTON_GAP),
+          ACTOR_BUTTON_WIDTH,
+          BUTTON_HEIGHT);
     }
 
     font_loaded = font.loadFromFile("assets/fonts/PirataOne.ttf");
@@ -128,7 +144,26 @@ void ClientInput::handle_event(const sf::Event& event)
         }
         selected_type = type;
         selected_pawn = nullptr;
-        message = "Choisissez un pion.";
+        message = "Choisissez un pion dans la colonne de droite.";
+        return;
+    }
+
+    for (std::size_t i = 0; i < actor_buttons.size(); ++i) {
+        if (!actor_buttons[i].contains(position)) {
+            continue;
+        }
+        if (!selected_type) {
+            message = "Choisissez d'abord un type d'action.";
+            return;
+        }
+
+        state::Pawn* actor = actor_for_button(i);
+        if (!has_actor_actions(actor)) {
+            message = "Ce pion ne peut pas faire cette action.";
+            return;
+        }
+        selected_pawn = actor;
+        message = "Cliquez sur une case ou une cible surlignee.";
         return;
     }
 
@@ -156,6 +191,36 @@ bool ClientInput::has_actions(ActionType type) const
         }
     }
     return false;
+}
+
+bool ClientInput::has_actor_actions(state::Pawn* actor) const
+{
+    if (!selected_type || !actor) {
+        return false;
+    }
+    return std::any_of(
+        possible_actions.begin(),
+        possible_actions.end(),
+        [this, actor](const auto& action) {
+            return type_for(action) == selected_type
+                && actor_for(action) == actor;
+        });
+}
+
+state::Pawn* ClientInput::actor_for_button(std::size_t slot) const
+{
+    state::GameState& game_state = engine.state;
+    state::Player& player = game_state.get_current_player();
+    switch (slot) {
+    case 0:
+        return &player.get_warrior();
+    case 1:
+        return &player.get_sorcerer();
+    case 2:
+        return &game_state.get_dragon();
+    default:
+        return nullptr;
+    }
 }
 
 std::optional<ActionType> ClientInput::type_for(
@@ -230,24 +295,7 @@ void ClientInput::handle_click(sf::Vector2f position)
         }
     }
 
-    state::Pawn* clicked_pawn = pawn_at(position);
-    if (clicked_pawn) {
-        const bool can_select = std::any_of(
-            possible_actions.begin(),
-            possible_actions.end(),
-            [this, clicked_pawn](const auto& action) {
-                return type_for(action) == selected_type
-                    && actor_for(action) == clicked_pawn;
-            });
-        if (can_select) {
-            selected_pawn = clicked_pawn;
-            message = "Cliquez sur une cible surlignee.";
-            return;
-        }
-    }
-
-    selected_pawn = nullptr;
-    message = "Choisissez un pion.";
+    message = "Cliquez sur une case ou une cible surlignee.";
 }
 
 void ClientInput::submit_action(
@@ -390,6 +438,29 @@ void ClientInput::draw_buttons()
         }
     }
 
+    for (std::size_t i = 0; i < actor_buttons.size(); ++i) {
+        const sf::FloatRect& bounds = actor_buttons[i];
+        state::Pawn* actor = actor_for_button(i);
+        const bool available = has_actor_actions(actor);
+        const bool selected = actor == selected_pawn;
+        sf::RectangleShape shape({bounds.width, bounds.height});
+        shape.setPosition({bounds.left, bounds.top});
+        shape.setFillColor(!available
+            ? sf::Color(120, 120, 120)
+            : selected ? sf::Color(60, 110, 175) : sf::Color(65, 75, 90));
+        shape.setOutlineThickness(1.f);
+        shape.setOutlineColor(sf::Color::Black);
+        window.draw(shape);
+
+        if (font_loaded) {
+            sf::Text text(ACTOR_LABELS[i], font);
+            text.setCharacterSize(16);
+            text.setFillColor(sf::Color::White);
+            text.setPosition(bounds.left + 8.f, bounds.top + 8.f);
+            window.draw(text);
+        }
+    }
+
     sf::RectangleShape end_turn(
         {end_turn_bounds.width, end_turn_bounds.height});
     end_turn.setPosition({end_turn_bounds.left, end_turn_bounds.top});
@@ -409,7 +480,7 @@ void ClientInput::draw_buttons()
         sf::Text status(message, font);
         status.setCharacterSize(16);
         status.setFillColor(sf::Color::Black);
-        status.setPosition(FIRST_BUTTON_X, BUTTON_Y + BUTTON_HEIGHT + 8.f);
+        status.setPosition(ACTION_BUTTON_X, STATUS_Y);
         window.draw(status);
     }
 }
