@@ -5,22 +5,58 @@
 #include "state/Warrior.h"
 #include "state/Player.h"
 #include "state/Board.h"
+#include "state/Dragon.h"
 #include "GameEngine/Action.h"
 #include "GameEngine/AttackAction.h"
 #include "GameEngine/MoveAction.h"
 #include "GameEngine/HealAction.h"
 #include "GameEngine/ReviveAction.h"
-
 #include <memory>
+#include <array>
 
 #include "CastAction.h"
-
 
 namespace GameEngine {
 
 RuleEngine::RuleEngine() = default;
 
 RuleEngine::~RuleEngine() = default;
+
+std::optional<std::array<state::Position, 4>> RuleEngine::camp_entries_for(
+    state::Color color)
+{
+    switch (color) {
+    case state::Color::Red:
+        return std::array{
+            state::Position(-4, -1),
+            state::Position(-3, -2),
+            state::Position(-2, -3),
+            state::Position(-1, -4)
+        };
+    case state::Color::Blue:
+        return std::array{
+            state::Position(5, -4),
+            state::Position(5, -3),
+            state::Position(5, -2),
+            state::Position(5, -1)
+        };
+    case state::Color::Green:
+        return std::array{
+            state::Position(-5, 1),
+            state::Position(-5, 2),
+            state::Position(-5, 3),
+            state::Position(-5, 4)
+        };
+    case state::Color::Yellow:
+        return std::array{
+            state::Position(1, 4),
+            state::Position(2, 3),
+            state::Position(3, 2),
+            state::Position(4, 1)
+        };
+    }
+    return std::nullopt;
+}
 
 bool RuleEngine::is_valid(state::GameState& game_state, Action& action) {
     // Identifier le type d'action puis appliquer la règle correspondante.
@@ -47,6 +83,18 @@ std::vector<std::shared_ptr<Action>> RuleEngine::possible_actions(state::GameSta
         if (pawn->get_place() == state::Place::Cimetery && can_revive(*pawn, game_state)) {
             actions.push_back(std::make_shared<ReviveAction>(pawn, draw));
         }
+        if (pawn->get_place() == state::Place::Camp) {
+            const auto entries = camp_entries_for(pawn->get_color());
+            if (entries) {
+                for (const state::Position& entry : *entries) {
+                    if (can_move(*pawn, entry, game_state)) {
+                        actions.push_back(
+                            std::make_shared<MoveAction>(pawn, entry));
+                    }
+                }
+            }
+            continue;
+        }
         // combat et déplacement
         if (pawn->get_place() != state::Place::Arena) {
             continue; // si pawn n'est pas dans Arena, il ne peut ni bouger ni attaquer
@@ -59,6 +107,10 @@ std::vector<std::shared_ptr<Action>> RuleEngine::possible_actions(state::GameSta
             }
         }
         // attaques possibles
+        if (game_state.has_attacked_this_turn()) {
+            continue;
+        }
+
         for (state::Player& player : game_state.get_players()) {
             if (player.getColor() == current_player.getColor()) {
                 continue; // pas d'attaque sur soi-même
@@ -77,6 +129,16 @@ std::vector<std::shared_ptr<Action>> RuleEngine::possible_actions(state::GameSta
         }
     }
 
+    if (game_state.get_draw_dice().has_dice(state::TRISKELL)) {
+        state::Dragon& dragon = game_state.get_dragon();
+        for (const state::Position& destination : dragon.get_position().neighbors()) {
+            auto action = std::make_shared<MoveAction>(&dragon, destination);
+            if (action->can_apply(game_state)) {
+                actions.push_back(action);
+            }
+        }
+    }
+
     return actions;
 }
 
@@ -91,6 +153,9 @@ bool RuleEngine::can_attack(state::PlayablePawn& attacker,
                                 state::PlayablePawn& target,
                                 state::GameState& game_state)
 {
+    if (game_state.has_attacked_this_turn()) {
+        return false;
+    }
     AttackAction action(&attacker, &target);
     return action.can_apply(); // Délégation complète et sans doublon !
 }

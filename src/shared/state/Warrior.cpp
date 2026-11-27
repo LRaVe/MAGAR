@@ -4,7 +4,7 @@
 using namespace state;
 
 Warrior::Warrior(Color color, Position position) : PlayablePawn(color,position) {
-
+    set_attack(2);
 }
 Warrior::~Warrior() {}
 

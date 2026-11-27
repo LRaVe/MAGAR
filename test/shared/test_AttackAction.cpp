@@ -3,6 +3,8 @@
 #include "../../src/shared/state/PlayablePawn.h"
 #include "../../src/shared/state/GameState.h"
 #include "../../src/shared/state/AttackDice.h"
+#include "../../src/shared/state/Warrior.h"
+#include "../../src/shared/state/Sorcerer.h"
 #include "../../src/shared/GameEngine/RuleEngine.h"
 
 BOOST_AUTO_TEST_CASE(TestStaticAssert)
@@ -65,7 +67,7 @@ BOOST_AUTO_TEST_CASE(AttackAction_execute_verification_test)
     state::Position posAttacker = attacker.get_position();
     state::Position posTarget = target.get_position();
     GameEngine::AttackAction attack_action5(&attacker,&target);
-    BOOST_CHECK(!attack_action5.areHexAdjacent(posAttacker,posTarget));
+    BOOST_CHECK(!attack_action5.is_target_adjacent());
     BOOST_CHECK_NO_THROW(attack_action5.execute(state));
 }
 
@@ -112,4 +114,43 @@ BOOST_AUTO_TEST_CASE(AttackAction_validate_test)
     GameEngine::RuleEngine rules;
 
     BOOST_CHECK(!action.validate(rules, state));
+}
+
+BOOST_AUTO_TEST_CASE(AttackAction_class_dice_and_star_bonus_test)
+{
+    state::GameState game_state;
+    state::Warrior& warrior = game_state.get_players()[0].get_warrior();
+    state::Sorcerer& sorcerer = game_state.get_players()[0].get_sorcerer();
+
+    BOOST_CHECK_EQUAL(GameEngine::AttackAction::dice_count_for(warrior, game_state), 2);
+    BOOST_CHECK_EQUAL(GameEngine::AttackAction::dice_count_for(sorcerer, game_state), 1);
+
+    warrior.set_position(state::Position(2, -4));
+    sorcerer.set_position(state::Position(2, -4));
+    BOOST_CHECK_EQUAL(GameEngine::AttackAction::dice_count_for(warrior, game_state), 3);
+    BOOST_CHECK_EQUAL(GameEngine::AttackAction::dice_count_for(sorcerer, game_state), 2);
+}
+
+BOOST_AUTO_TEST_CASE(AttackAction_only_once_per_turn_test)
+{
+    state::GameState game_state;
+    state::PlayablePawn& attacker = game_state.get_players()[0].get_warrior();
+    state::PlayablePawn& target = game_state.get_players()[1].get_warrior();
+    attacker.set_place(state::Place::Arena);
+    target.set_place(state::Place::Arena);
+    attacker.set_position(state::Position(0, 0));
+    target.set_position(state::Position(1, 0));
+    attacker.set_attack(1);
+    target.set_attack(1);
+
+    GameEngine::AttackAction action(&attacker, &target);
+    GameEngine::RuleEngine rules;
+
+    BOOST_CHECK(action.validate(rules, game_state));
+    action.execute(game_state);
+    BOOST_CHECK(game_state.has_attacked_this_turn());
+    BOOST_CHECK(!action.validate(rules, game_state));
+
+    game_state.next_turn();
+    BOOST_CHECK(!game_state.has_attacked_this_turn());
 }

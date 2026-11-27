@@ -13,7 +13,8 @@ GameState::GameState() :
     board(Board()),
     dice_Draw(),
     stone(Stone(Position(0,0))),
-    dragon(Dragon(Position(0,0))){
+    dragon(Dragon(Position(0,0))),
+    attack_used_this_turn(false){
     add_player(Color::Red, Position(0,0), Position(0,0));
     add_player(Color::Blue, Position(0,0), Position(0,0));
     add_player(Color::Green, Position(0,0), Position(0,0));
@@ -50,6 +51,14 @@ Dragon& GameState::get_dragon() {
     return dragon;
 }
 
+bool GameState::has_attacked_this_turn() const {
+    return attack_used_this_turn;
+}
+
+void GameState::mark_attack_used() {
+    attack_used_this_turn = true;
+}
+
 
 void GameState::add_player(Color color, Position warrior_position, Position sorcerer_position) {
     players.emplace_back(color, warrior_position, sorcerer_position);
@@ -64,4 +73,5 @@ void GameState::next_turn() {
     current_Player_index =
         (current_Player_index + 1) % players.size();
     ++turn;
+    attack_used_this_turn = false;
 }

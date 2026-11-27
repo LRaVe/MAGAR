@@ -21,24 +21,20 @@ void Engine::start_game() {
 }
 
 void Engine::start_turn() {
-    // Implementation of starting a turn
     state.get_draw_dice().roll(3);
     state.get_current_player().get_sorcerer().reset_spell_usage();
-
-
-    auto_end_if_stuck();
-
-      
 }
 
 bool Engine::submit_action(Action& action) {
-    // Implementation of submitting an action
-     if (!rules.is_valid(state, action)) return false;
+    if (!rules.is_valid(state, action)) return false;
     action.execute(state);
-    if (typeid(action) == typeid(EndTurnAction)) end_turn();      // EndTurnAction
-    else auto_end_if_stuck();
+    if (typeid(action) == typeid(EndTurnAction)) end_turn();
     return true;
 
+}
+
+std::vector<std::shared_ptr<Action>> Engine::possible_actions() {
+    return rules.possible_actions(state);
 }
 
 void Engine::end_turn() {
@@ -53,7 +49,6 @@ bool Engine::is_game_over() {
 }
 
 void Engine::auto_end_if_stuck() {
-    // Implementation of auto-ending the turn if the player is stuck
     if (rules.possible_actions(state).size() == 1) end_turn();
 }
 

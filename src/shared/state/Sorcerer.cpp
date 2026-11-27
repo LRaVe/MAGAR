@@ -7,6 +7,7 @@ using namespace state;
 Sorcerer::Sorcerer(Color color, Position position) 
     : PlayablePawn(color,position),
     can_spell(true) {
+    set_attack(1);
 }
 
 Sorcerer::~Sorcerer() {}

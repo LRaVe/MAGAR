@@ -40,16 +40,6 @@ void PawnLayer::draw_dragon (sf::RenderWindow& window, state::Dragon& dragon){
     window.draw(dragon_shape);
 }
 
-sf::Vector2f get_position_from(std::array<Placement, 4> ALL_PLACEMENT, state::Color pawn_color ) {
-    sf::Vector2f pos = {0,0};
-    for (auto camp : ALL_PLACEMENT) {
-        if (pawn_color == camp.color) {
-            pos =  camp.position;
-        }
-    }
-    return pos;
-}
-
 sf::Texture& PawnLayer::get_mage_texture_from(state::Color pawn_color) {
     switch (pawn_color) {
     case state::Color::Red:
@@ -87,28 +77,7 @@ sf::Texture& PawnLayer::get_texture_from(state::PlayablePawn& pawn) {
 void PawnLayer::draw_playable(sf::RenderWindow& window, state::PlayablePawn& pawn, int slot) {
     sf::CircleShape pawn_shape(SIZE_PAWN);
 
-    sf::Vector2f pawn_positon;
-
-    switch (pawn.get_place()) {
-    case state::Place::Arena :
-        pawn_positon = Transformator::hex_to_pixel(pawn.get_position());
-        break;
-    case state::Place::Camp:
-        pawn_positon = get_position_from(ALL_CAMP_PLACEMENT,pawn.get_color()) ;
-        break;
-    case state::Place::Hospital:
-        pawn_positon = get_position_from(ALL_HOSPITAL_PLACEMENT,pawn.get_color());
-        break;
-    case state::Place::Cimetery:
-        pawn_positon = get_position_from(ALL_CEMETERY_PLACEMENT,pawn.get_color());
-        break;
-    }
-    if (pawn.get_place() != state::Place::Arena)
-        pawn_positon += sf::Vector2f(slot == 0 ? -SLOT_OFFSET : SLOT_OFFSET, 0.f);
-
-
-
-    pawn_shape.setPosition(pawn_positon);
+    pawn_shape.setPosition(Transformator::playable_pawn_to_pixel(pawn, slot));
     pawn_shape.setOrigin({SIZE_PAWN, SIZE_PAWN});
     pawn_shape.setTexture(&get_texture_from(pawn));
     window.draw(pawn_shape);
