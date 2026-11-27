@@ -2,18 +2,14 @@
 #include "state/GameState.h"
 #include "GameEngine/RuleEngine.h"
 #include "GameEngine/Action.h"
-#include "GameEngine/TurnManager.h"
 #include "GameEngine/EndTurnAction.h"
 
 
 namespace GameEngine {
 
-Engine::Engine(state::GameState& state) : state(state) {
-
-}
+Engine::Engine() : state(state::GameState()) {};
 
 Engine::~Engine() = default;
-
 
 void Engine::start_game() {
     // Implementation of starting the game
@@ -27,8 +23,6 @@ void Engine::start_turn() {
 
 
     auto_end_if_stuck();
-
-      
 }
 
 bool Engine::submit_action(Action& action) {
@@ -44,7 +38,6 @@ bool Engine::submit_action(Action& action) {
 void Engine::end_turn() {
     state.next_turn();
     start_turn();
-
 }
 
 bool Engine::is_game_over() {
@@ -57,4 +50,7 @@ void Engine::auto_end_if_stuck() {
     if (rules.possible_actions(state).size() == 1) end_turn();
 }
 
+state::GameState& Engine::get_state() {
+    return state;
+}
 }
