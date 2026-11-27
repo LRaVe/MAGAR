@@ -1,6 +1,5 @@
 #include "state/GameState.h"
 #include "state/Board.h"
-#include "GameEngine/Action.h"
 
 #include <memory>
 const int NB_PLAYERS = 4;
@@ -19,7 +18,7 @@ GameState::GameState() :
     add_player(Color::Green, Position(0,0), Position(0,0));
     add_player(Color::Yellow, Position(0,0), Position(0,0));
 }
-GameState::~GameState() {}
+GameState::~GameState() = default;
 
 int GameState::get_turn() {
     return turn;
@@ -64,4 +63,27 @@ void GameState::next_turn() {
     current_Player_index =
         (current_Player_index + 1) % players.size();
     ++turn;
+}
+
+bool GameState::stone_is_on() {
+    Position stone_pos = stone.get_position();
+
+    bool stone_on_player = false;
+
+    Position dragon_pos = dragon.get_position();
+    stone_on_player = ((dragon_pos.q == stone_pos.q && dragon_pos.r == stone_pos.r)) || stone_on_player;
+
+    for (auto& player : players) {
+        Position w_pos = player.get_warrior().get_position();
+        Position s_pos = player.get_sorcerer().get_position();
+
+        bool on_warrior  = (w_pos.q == stone_pos.q && w_pos.r == stone_pos.r);
+        bool on_sorcerer = (s_pos.q == stone_pos.q && s_pos.r == stone_pos.r);
+
+        if (on_warrior || on_sorcerer) {
+            stone_on_player = true;
+            break;
+        }
+    }
+    return stone_on_player;
 }

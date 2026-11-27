@@ -10,36 +10,11 @@ Telekinesis::Telekinesis(const Position& destination) : Spell(), destination(des
 
 Telekinesis::~Telekinesis() = default;
 
-int Telekinesis::get_nb_of_dice(GameState& state)
-{
-    Position stone_pos = state.get_stone().get_position();
-
-    bool stone_on_player = false;
-    for (auto& player : state.get_players())
-    {
-        Position w_pos = player.get_warrior().get_position();
-        Position s_pos = player.get_sorcerer().get_position();
-
-        bool on_warrior  = (w_pos.q == stone_pos.q && w_pos.r == stone_pos.r);
-        bool on_sorcerer = (s_pos.q == stone_pos.q && s_pos.r == stone_pos.r);
-
-        if (on_warrior || on_sorcerer)
-        {
-            stone_on_player = true;
-            break;
-        }
-    }
-
-    if (stone_on_player)
-    {
-        return 3;
-    } else {
-        return 1;
-    }
+int Telekinesis::get_nb_of_dice(GameState& state) {
+    return state.stone_is_on() ? 3 : 1;
 }
 
-std::vector<Position> Telekinesis::ListOfMoves(GameState& state) const
-{
+std::vector<Position> Telekinesis::ListOfMoves(GameState& state) const {
     Position stone_pos = state.get_stone().get_position();
 
     static const std::pair<int, int> hex_directions[6] = {

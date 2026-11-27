@@ -10,6 +10,7 @@ using namespace render;
 
 PawnLayer::PawnLayer() {
     load_texture(dragon_texture, PAWN_ASSET_PATH + "dragon.png");
+    load_texture(stone_texture,PAWN_ASSET_PATH + "stone.png");
     load_texture(mage_red_texture, PAWN_ASSET_PATH + "mage_red.png");
     load_texture(warrior_red_texture, PAWN_ASSET_PATH + "warrior_red.png");
     load_texture(mage_blue_texture, PAWN_ASSET_PATH + "mage_blue.png");
@@ -28,6 +29,7 @@ void PawnLayer::render(sf::RenderWindow& window, state::GameState& state) {
         draw_playable(window, player.get_warrior(), 0);
         draw_playable(window, player.get_sorcerer(), 1);
     }
+    draw_stone(window, state.get_stone());
 }
 
 void PawnLayer::draw_dragon (sf::RenderWindow& window, state::Dragon& dragon){
@@ -38,6 +40,16 @@ void PawnLayer::draw_dragon (sf::RenderWindow& window, state::Dragon& dragon){
     dragon_shape.setTexture(&dragon_texture);
 
     window.draw(dragon_shape);
+}
+
+void PawnLayer::draw_stone (sf::RenderWindow& window, state::Stone& stone){
+    sf::CircleShape stone_shape(SIZE_PAWN);
+
+    stone_shape.setPosition(Transformator::hex_to_pixel(stone.get_position()));
+    stone_shape.setOrigin({SIZE_PAWN, SIZE_PAWN}); // center
+    stone_shape.setTexture(&stone_texture);
+
+    window.draw(stone_shape);
 }
 
 sf::Vector2f get_position_from(std::array<Placement, 4> ALL_PLACEMENT, state::Color pawn_color ) {
