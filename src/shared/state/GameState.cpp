@@ -77,8 +77,8 @@ bool GameState::stone_is_on() {
         Position w_pos = player.get_warrior().get_position();
         Position s_pos = player.get_sorcerer().get_position();
 
-        bool on_warrior  = (w_pos.q == stone_pos.q && w_pos.r == stone_pos.r);
-        bool on_sorcerer = (s_pos.q == stone_pos.q && s_pos.r == stone_pos.r);
+        bool on_warrior  = player.get_warrior().get_place() == state::Arena && (w_pos.q == stone_pos.q && w_pos.r == stone_pos.r);
+        bool on_sorcerer = player.get_sorcerer().get_place() == state::Arena && (s_pos.q == stone_pos.q && s_pos.r == stone_pos.r);
 
         if (on_warrior || on_sorcerer) {
             stone_on_player = true;

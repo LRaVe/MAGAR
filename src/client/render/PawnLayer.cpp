@@ -29,7 +29,7 @@ void PawnLayer::render(sf::RenderWindow& window, state::GameState& state) {
         draw_playable(window, player.get_warrior(), 0);
         draw_playable(window, player.get_sorcerer(), 1);
     }
-    draw_stone(window, state.get_stone());
+    draw_stone(window, state.get_stone(), state.stone_is_on());
 }
 
 void PawnLayer::draw_dragon (sf::RenderWindow& window, state::Dragon& dragon){
@@ -42,11 +42,16 @@ void PawnLayer::draw_dragon (sf::RenderWindow& window, state::Dragon& dragon){
     window.draw(dragon_shape);
 }
 
-void PawnLayer::draw_stone (sf::RenderWindow& window, state::Stone& stone){
-    sf::CircleShape stone_shape(SIZE_PAWN);
+void PawnLayer::draw_stone (sf::RenderWindow& window, state::Stone& stone, bool is_on){
+    float stone_size = is_on ? SIZE_PAWN/1.5 : SIZE_PAWN;
 
-    stone_shape.setPosition(Transformator::hex_to_pixel(stone.get_position()));
-    stone_shape.setOrigin({SIZE_PAWN, SIZE_PAWN}); // center
+    sf::CircleShape stone_shape(stone_size);
+
+    sf::Vector2f stone_position = is_on ? Transformator::hex_to_pixel(stone.get_position()) + sf::Vector2f({stone_size/2,stone_size/2})
+                                        : Transformator::hex_to_pixel(stone.get_position());
+
+    stone_shape.setPosition(stone_position);
+    stone_shape.setOrigin({stone_size, stone_size}); // center
     stone_shape.setTexture(&stone_texture);
 
     window.draw(stone_shape);

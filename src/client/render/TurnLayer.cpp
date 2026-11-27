@@ -25,7 +25,7 @@ void TurnLayer::turn_draw(sf::RenderWindow& window, int turn) const {
     sf::String turn_string = sf::String("Tour: ") + sf::String(std::to_string(turn));
     sf::Text turn_text(turn_string,title_font);
     turn_text.setFillColor( sf::Color::Black );
-    turn_text.setCharacterSize( 25 );
+    turn_text.setCharacterSize( 35 );
     turn_text.setPosition({-590,-390});
     window.draw(turn_text);
 
@@ -37,7 +37,7 @@ void TurnLayer::current_color_draw(sf::RenderWindow& window, state::Color curren
     sf::String player_string = Transformator::to_sf_string(current_player_color);
     sf::Text player_text(player_string,title_font);
     player_text.setFillColor( sf::Color::Black );
-    player_text.setCharacterSize( 25 );
+    player_text.setCharacterSize( 35 );
     player_text.setPosition({-590,-355});
     window.draw(player_text);
 }

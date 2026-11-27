@@ -16,7 +16,7 @@ using namespace std;
 using namespace state;
 using namespace render;
 
-const int WINDOW_WIDTH = 1200;
+const int WINDOW_WIDTH = 1400;
 const int WINDOW_HEIGHT = 800;
 
 // int argc,char* argv[]
@@ -27,20 +27,19 @@ int main(){
     sf::RenderWindow window( sf::VideoMode( { WINDOW_WIDTH, WINDOW_HEIGHT } ), "Magar : Le Dragon et la Pierre" );
     window.setVerticalSyncEnabled(true);
     sf::View view(sf::FloatRect({0.f, 0.f}, {WINDOW_WIDTH, WINDOW_HEIGHT}));
-    view.setCenter({0.f, 0.f});
+    view.setCenter({100.f, 0.f});
     window.setView(view);
 
     // GameState
     GameState game_state = GameState();
 
     game_state.get_dragon().set_position(Position(2,-2));
-
     game_state.get_current_player().get_sorcerer().set_position(Position(0,0));
     game_state.get_current_player().get_warrior().set_position(Position(0,1));
     game_state.get_players()[1].get_sorcerer().set_place(state::Cimetery);
     game_state.get_players()[1].get_warrior().set_place(state::Cimetery);
 
-    game_state.get_players()[2].get_sorcerer().set_position(Position(0,2));
+    game_state.get_players()[2].get_sorcerer().set_position(Position(0,0));
     game_state.get_players()[2].get_warrior().set_position(Position(2,1));
     game_state.get_players()[2].get_sorcerer().set_place(state::Arena);
     game_state.get_players()[2].get_warrior().set_place(state::Arena);
