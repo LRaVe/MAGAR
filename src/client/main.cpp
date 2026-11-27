@@ -2,6 +2,7 @@
 
 // The following lines are here to check that SFML is installed and working
 #include <SFML/Graphics.hpp>
+#include "GameEngine/MoveAction.h"
 // LCOV_EXCL_START
 void testSFML() {
     sf::Texture texture;
@@ -34,15 +35,15 @@ int main(){
 
     game_state.get_dragon().set_position(Position(2,-2));
 
-    game_state.get_current_player().get_sorcerer().set_place(state::Hospital);
-    game_state.get_current_player().get_warrior().set_place(state::Hospital);
+    game_state.get_current_player().get_sorcerer().set_position(Position(0,0));
+    game_state.get_current_player().get_warrior().set_position(Position(0,1));
     game_state.get_players()[1].get_sorcerer().set_place(state::Cimetery);
     game_state.get_players()[1].get_warrior().set_place(state::Cimetery);
 
     game_state.get_players()[2].get_sorcerer().set_position(Position(0,2));
     game_state.get_players()[2].get_warrior().set_position(Position(2,1));
-    game_state.get_players()[2].get_sorcerer().set_place(state::Arena);
-    game_state.get_players()[2].get_warrior().set_place(state::Arena);
+    game_state.get_players()[3].get_sorcerer().set_place(state::Arena);
+    game_state.get_players()[3].get_warrior().set_place(state::Arena);
 
     // Render State
     StateRender state_render = StateRender(window, game_state);
@@ -50,9 +51,24 @@ int main(){
     while (window.isOpen()) {
         sf::Event event;
         while (window.pollEvent(event)) {
-            if (event.type == sf::Event::Closed)
+            if (event.type == sf::Event::Closed){
                 window.close();
+        } else if (event.type == sf::Event::KeyPressed) {
+        if (event.key.code == sf::Keyboard::M) {
+            auto& pawn = game_state.get_players()[2].get_sorcerer();
+            GameEngine::MoveAction action(
+                &pawn, pawn.get_position().neighbor(0));
+
+            if (action.can_apply(game_state)) {
+                action.execute(game_state);
+            } else {
+                std::cout << "Déplacement impossible : vérifiez le dé disponible.\n";
+            }
+        } else if (event.key.code == sf::Keyboard::R) {
+            game_state.get_draw_dice().roll(3);
         }
+    }
+    }
         window.clear(sf::Color::White);
         state_render.render();
         window.display();
