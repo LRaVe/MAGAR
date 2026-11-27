@@ -42,8 +42,8 @@ int main(){
 
     game_state.get_players()[2].get_sorcerer().set_position(Position(0,2));
     game_state.get_players()[2].get_warrior().set_position(Position(2,1));
-    game_state.get_players()[3].get_sorcerer().set_place(state::Arena);
-    game_state.get_players()[3].get_warrior().set_place(state::Arena);
+    game_state.get_players()[2].get_sorcerer().set_place(state::Arena);
+    game_state.get_players()[2].get_warrior().set_place(state::Arena);
 
     // Render State
     StateRender state_render = StateRender(window, game_state);
